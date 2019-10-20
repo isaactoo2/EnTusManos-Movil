@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_person_24dp"
+            android:title="@string/menu_user" />
+        <item
+            android:id="@+id/nav_forum"
+            android:icon="@drawable/ic_forum_24dp"
+            android:title="@string/menu_foros" />
+        <item
+            android:id="@+id/nav_inter"
+            android:icon="@drawable/ic_transform_24dp"
+            android:title="@string/menu_inter" />
+        <item
+            android:id="@+id/nav_donaciones"
+            android:title="Donaciones"
+            android:icon="@drawable/ic_favorite_24dp"/>
+        <item
+            android:id="@+id/nav_asesoria"
+            android:title="Asesoria"
+            android:icon="@drawable/ic_supervisor_account_24dp"/>
+
+
+    </group>
+
+    <item android:title="Cuenta">
+        <menu>
+
+            <item
+                android:id="@+id/nav_setts"
+                android:icon="@drawable/ic_settings_24dp"
+                android:title="@string/menu_config" />
+            <item
+                android:id="@+id/nav_faq"
+                android:title="FAQ's"
+                android:icon="@drawable/ic_forum_24dp"/>
+            <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/ic_exit_to_app_24dp"
+                android:title="@string/menu_exit" />
+        </menu>
+    </item>
+
+</menu>

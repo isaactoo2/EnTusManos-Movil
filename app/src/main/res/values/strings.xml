@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">En Tus Manos</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Usuario</string>
+    <string name="nav_header_subtitle">micorreo@correo.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Inicio</string>
+
+
+    <string name="menu_user">Mi perfil</string>
+    <string name="menu_foros">Foros</string>
+    <string name="menu_inter">Intercambios</string>
+    <string name="menu_dona">Donaciones</string>
+    <string name="menu_aseso">Asesoria</string>
+    <string name="menu_config">Configuracion</string>
+    <string name="menu_faqs">FAQs</string>
+    <string name="menu_exit">Salir</string>
+
+    <string name="consejo">Consejo Diario</string>
+    <string name="consejoCuerpo">El cuerpo de la mujer pasa por distintos etapas luego de dar a luz y se engloban en lo que medicamente se llama Puerperio. Estas fases son relativas a cada mujer y sus tiempos no son exactos. Relajate.</string>
+
+    <string name="q1">¿Qué es En tus Manos?</string>
+    <string name="a1">En tus manos es un sitio de ayuda mutua a padres, madres primerizos los cuales ayudaran a mejorar las condiciones con sus hijos, participando mediante foros conseguirás hablar tanto con personas experimentadas sobre algún tema en específico.</string>
+
+    <string name="q2">¿Qué necesito para poder registrarme?</string>
+    <string name="a2">Sola mente necesitas llenar el formulario con tus datos personales, un nombre de usuario, una contraseña y una dirección de correo electrónico.</string>
+
+    <string name="q3">¿Cómo puedo ingresar al sitio web?</string>
+    <string name="a3">Ingresando desde tu navegador al sitio www.entusmanos.com ingresando tu usuario.</string>
+
+    <string name="q4">¿Por qué no puedo ingresar al sitio después de haberme registrado?</string>
+    <string name="a4">El nombre de usuario o la contraseña son incorrectos. Si haz olvidado tu contraseña solicita la recuperación de cuentas en el login del aplicativo</string>
+
+    <string name="q5">¿Puedo acceder al sitio desde un dispositivo móvil (celular, Tablet, etc.)?</string>
+    <string name="a5">Sí, siempre y cuando tengas un Teléfono Inteligente (Smartphone) con conexión a internet vía wifi o plan de datos desde tu navegador de preferencia.</string>
+
+    <string name="q6">¿Qué beneficios me traerá estar unido al sitio web En tus Manos?</string>
+    <string name="a6">Amplitud al conocimiento sobre temas como padres primerizos.
+
+Revisión de materiales informativos en los foros sobre un tema en especifico.
+
+Informarse sobre donaciones de intercambios de artículo de interés con otras personas.</string>
+
+    <string name="q7">¿Cómo puedo cambiar mis datos en mi perfil?</string>
+    <string name="a7">Yendo al icono de perfil seleccionando configuración de perfil editar información y haciendo los cambios en los cambios respectivos que desees modificar.</string>
+
+    <string name="q8">¿Cómo puedo cambiar mi contraseña?</string>
+    <string name="a8">Puedes solicitar un cambio de contraseña desde tu configuración de perfil de usuario dando al icono de configuración de perfil. A configuración de usuario solicitar cambio de contraseña. \n\n\n\n\n</string>
+
+    <string name="pwdError">La contraseña debe tener mínimo 8 caracteres, incluida 1 letra mayúscula, 1 letra minúscula y caracteres numéricos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
+
