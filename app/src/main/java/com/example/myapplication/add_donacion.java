@@ -70,8 +70,6 @@ public class add_donacion extends AppCompatActivity {
     JsonObjectRequest jsonObjectRequest;
     url server = new url();
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

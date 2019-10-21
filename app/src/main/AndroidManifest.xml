@@ -43,6 +43,7 @@
 
         <activity android:name=".faqs" android:label="FAQs"></activity>
         <activity android:name=".add_donacion" android:label="Publicar Articulo"></activity>
+        <activity android:name=".add_asesoria" android:label="Nueva consulta"></activity>
         <activity android:name=".recovery_pwd"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
