@@ -106,14 +106,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void cargarWebService() {
 
-
-        String url = "http://192.168.1.44/login/getNoticias.php";
-        jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, this, this);
-        request.add(jsonObjectRequest);
-
-    }
 
     @Override
     public void onBackPressed() {

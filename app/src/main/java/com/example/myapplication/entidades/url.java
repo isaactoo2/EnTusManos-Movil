@@ -5,7 +5,7 @@ public class url {
     String remoto="40.71.101.42";
     public String getServer() {
 
-        server="40.71.101.42";
+        server="40.117.123.197";
         return server;
     }
 

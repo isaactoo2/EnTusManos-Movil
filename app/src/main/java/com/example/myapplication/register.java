@@ -221,7 +221,7 @@ public class register extends Activity implements Response.Listener<JSONObject>,
 
     private void cargarWebService() {
         try {
-            String url = "http://"+server.getServer()+"/login/registro.php?name="+name.getEditText().getText().toString()+"&lname="+lname.getEditText().getText().toString()+"&email="+email.getEditText().getText().toString()+"&pwd="+pwd.getEditText().getText().toString()+"&pwd2="+pwd2.getEditText().getText().toString()+"&address="+address.getEditText().getText().toString()+"&gender="+spnGender.getSelectedItem().toString();
+            String url = "http://"+server.getServer()+"/yourhands2/ws/registro.php?name="+name.getEditText().getText().toString()+"&lname="+lname.getEditText().getText().toString()+"&email="+email.getEditText().getText().toString()+"&pwd="+pwd.getEditText().getText().toString()+"&pwd2="+pwd2.getEditText().getText().toString()+"&address="+address.getEditText().getText().toString()+"&gender="+spnGender.getSelectedItem().toString();
             url=url.replace(" ", "%20");
             jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, this, this);
             request.add(jsonObjectRequest);

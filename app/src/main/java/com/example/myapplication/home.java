@@ -133,7 +133,7 @@ public class home extends Fragment implements View.OnClickListener, Response.Lis
         data.setHeader(true);
         listaNoticias.add(data);
 
-        String url = "http://"+server.getServer()+"/login/getNoticias.php";
+        String url = "http://"+server.getServer()+"/yourhands2/ws/getNoticias.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }

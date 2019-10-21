@@ -115,7 +115,7 @@ public class noticias_adapter extends RecyclerView.Adapter<noticias_adapter.noti
     }
 
     private void cargarImagenWebService(String photoNoticia, final noticias_holder holder) {
-        String urlImage="http://"+server.getServer()+"/login/photos-noticias/"+photoNoticia;
+        String urlImage="http://"+server.getServer()+"/yourhands2/photos-noticias/"+photoNoticia;
 
         ImageRequest imageRequest=new ImageRequest(urlImage, new Response.Listener<Bitmap>() {
             @Override

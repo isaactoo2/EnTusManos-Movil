@@ -120,7 +120,7 @@ public class add_donacion extends AppCompatActivity {
 
     public void cargarWebService(){
         showDialog();
-        String url = "http://"+server.getServer()+"/login/addDonacionMovil.php";
+        String url = "http://"+server.getServer()+"/yourhands2/ws/addDonacionMovil.php";
         stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
