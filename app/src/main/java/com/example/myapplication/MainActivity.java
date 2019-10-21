@@ -50,7 +50,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements home.OnFragmentInteractionListener, asesorias.OnFragmentInteractionListener ,lista_donaciones.OnFragmentInteractionListener ,perfil.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener, Response.Listener<JSONObject>, Response.ErrorListener  {
+        implements home.OnFragmentInteractionListener,lista_foros.OnFragmentInteractionListener , asesorias.OnFragmentInteractionListener ,lista_donaciones.OnFragmentInteractionListener ,perfil.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener, Response.Listener<JSONObject>, Response.ErrorListener  {
     public static final String usuario = "usuario";
     public static final String email = "email";
     TextView lblnombre, lblemail;
@@ -176,7 +176,8 @@ public class MainActivity extends AppCompatActivity
             fragmentSelecionado=true;
 
         } else if (id == R.id.nav_forum) {
-
+            miFragment=new lista_foros();
+            fragmentSelecionado=true;
         } else if (id == R.id.nav_inter) {
             miFragment=new lista_donaciones();
             fragmentSelecionado=true;
