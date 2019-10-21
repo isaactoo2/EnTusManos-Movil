@@ -5,12 +5,35 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.myapplication.adapter.asesorias_adapter;
+import com.example.myapplication.adapter.donaciones_adapter;
+import com.example.myapplication.entidades.asesoria;
+import com.example.myapplication.entidades.donaciones;
+import com.example.myapplication.entidades.url;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 /**
@@ -21,7 +44,7 @@ import android.widget.Button;
  * Use the {@link asesorias#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class asesorias extends Fragment {
+public class asesorias extends Fragment implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,6 +55,14 @@ public class asesorias extends Fragment {
     private String mParam2;
 
     Button btn;
+    RecyclerView recyclerAsesoria;
+    ArrayList<asesoria> listaAsesorias;
+
+    RequestQueue request;
+    JsonObjectRequest jsonObjectRequest;
+    SwipeRefreshLayout refreshLayout;
+    url server = new url();
+    String iduser="13";
 
     private OnFragmentInteractionListener mListener;
 
@@ -70,6 +101,24 @@ public class asesorias extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_asesorias, container, false);
+        listaAsesorias= new ArrayList<>();
+
+        recyclerAsesoria=vista.findViewById(R.id.recyclerAsesorias);
+        recyclerAsesoria.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerAsesoria.setHasFixedSize(true);
+
+        request= Volley.newRequestQueue(getContext());
+        cargarWebService();
+
+        refreshLayout = vista.findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                cargarWebService();
+            }
+        });
+
         Button btnN=vista.findViewById(R.id.btnNuevaAsesoria);
         btnN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,10 +131,28 @@ public class asesorias extends Fragment {
         return vista;
     }
 
+    private void cargarWebService() {
+        asesoria data = new asesoria();
+        data.setHeader(true);
+        listaAsesorias.add(data);
+
+        String url = "http://"+server.getServer()+"/yourhands2/ws/getAsesorias.php?user="+iduser;
+        jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        request.add(jsonObjectRequest);
+    }
+
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode==1){
+            cargarWebService();
         }
     }
 
@@ -104,6 +171,52 @@ public class asesorias extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        asesoria as =null;
+        JSONArray json = response.optJSONArray("datos");
+
+        listaAsesorias.clear();
+        try {
+            asesoria data = new asesoria();
+            data.setHeader(true);
+            listaAsesorias.add(data);
+
+            for (int i = 0; i<json.length(); i++){
+                as = new asesoria();
+                JSONObject jsonObject=null;
+
+                jsonObject=json.getJSONObject(i);
+
+                as.setTituloAsesoria(jsonObject.optString("titulo"));
+                as.setCuerpoAsesoria(jsonObject.optString("descripcion"));
+                as.setEspecialidad(jsonObject.optString("iduser"));
+                as.setIdAsesoria(jsonObject.optString("especialidad"));
+
+
+                listaAsesorias.add(as);
+                refreshLayout.setRefreshing(false);
+            }
+
+            asesorias_adapter adapter=new asesorias_adapter(listaAsesorias);
+            recyclerAsesoria.setAdapter(adapter);
+        } catch (JSONException e) {
+            Toast.makeText(this.getContext(), "Error "+ e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+
+        }
     }
 
     /**
