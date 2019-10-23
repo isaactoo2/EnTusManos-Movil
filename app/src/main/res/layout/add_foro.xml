@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="8sp"
+        android:layout_marginLeft="8sp"
+        >
+
+        <Spinner
+            android:id="@+id/sprCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="50sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/txtTitulo"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Consulta"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords|textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/txtDescrip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Detalle de consulta..."
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+
+            android:layout_gravity="center"
+            android:layout_marginTop="8sp"
+            android:layout_marginBottom="15sp"
+            android:id="@+id/btnPublicar"
+            android:layout_width="158dp"
+            android:layout_height="50sp"
+            android:background="@drawable/button_blue"
+            android:text="Publicar"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:clickable="true"/>
+
+        <Button
+
+            android:layout_gravity="center"
+            android:layout_marginTop="8sp"
+            android:layout_marginBottom="15sp"
+            android:id="@+id/btnCancelar"
+            android:layout_width="158dp"
+            android:layout_height="50sp"
+            android:background="@drawable/button"
+            android:text="Cancelar"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
