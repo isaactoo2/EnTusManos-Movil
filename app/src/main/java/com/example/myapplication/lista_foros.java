@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -126,7 +127,7 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent donacion = new Intent(getContext(), add_donacion.class);
+                Intent donacion = new Intent(getContext(), add_foro.class);
 
                 startActivityForResult(donacion, 1);
             }
@@ -143,6 +144,12 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
         String url = "http://"+server.getServer()+"/yourhands2/ws/getForos.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode==1){
+            cargarWebService();
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

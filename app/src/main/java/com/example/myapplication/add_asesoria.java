@@ -31,7 +31,7 @@ public class add_asesoria extends AppCompatActivity {
     Spinner spnCateg;
     Button btnAgregar, btnCancelar;
     TextInputLayout titulo, descripcion;
-    String[] categorias={"Seleccionar categoria", "Pediatría", "Odontología"};
+    String[] categorias={"Seleccionar categoria", "Psicología", "Salud", "Nutrición", "Pediatría", "Neurología", "Dermatología"};
     StringRequest stringRequest;
     String iduser="13";
     RequestQueue request;
