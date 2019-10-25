@@ -44,7 +44,7 @@ import java.util.ArrayList;
  * Use the {@link lista_foros#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class lista_foros extends Fragment implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
+public class lista_foros extends Fragment implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener, foros_adapter.OnForoListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -215,13 +215,21 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
                 refreshLayout.setRefreshing(false);
             }
 
-            foros_adapter adapter=new foros_adapter(listaForos);
+            foros_adapter adapter=new foros_adapter(listaForos, this);
             recyclerForos.setAdapter(adapter);
         } catch (JSONException e) {
             Toast.makeText(this.getContext(), "Error "+ e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
 
         }
+    }
+
+    @Override
+    public void onForoClick(int position) {
+        Intent intent = new Intent(getContext(), ver_foro.class);
+        intent.putExtra("idForo", listaForos.get(position).getIdForo());
+        startActivity(intent);
+
     }
 
     /**
