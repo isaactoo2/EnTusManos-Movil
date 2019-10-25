@@ -54,6 +54,7 @@
         android:layout_marginBottom="10dp"
         android:text="Comentarios "
         android:textSize="14sp" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
@@ -61,7 +62,8 @@
         android:layout_above="@+id/txtComentar"
         android:layout_below="@+id/txt"
         android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp">
+        android:layout_marginBottom="1dp"
+        >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerComentarios"
@@ -74,7 +76,13 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_above="@+id/txtComentar"
 
+        android:layout_marginBottom="0dp"
+        android:background="@color/light_gray" />
 
 
     <EditText
@@ -85,9 +93,11 @@
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
 
-        android:layout_toStartOf="@+id/button"
-        android:layout_toLeftOf="@+id/button"
+
+        android:layout_toStartOf="@+id/btnEnviar"
+        android:layout_toLeftOf="@+id/btnEnviar"
         android:background="@drawable/edit_text"
         android:hint="Escribe un comentario..."
         android:isScrollContainer="true"
@@ -95,15 +105,18 @@
         android:maxHeight="150dp"
         android:padding="14dp"
 
+
         />
     <ImageButton
-        android:id="@+id/button"
+        android:visibility="gone"
+        android:id="@+id/btnEnviar"
         android:background="@drawable/button"
-        android:layout_width="55dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         app:srcCompat="@drawable/ic_send"
+        android:foregroundGravity="center"
 
 
         android:layout_alignParentBottom="true"
