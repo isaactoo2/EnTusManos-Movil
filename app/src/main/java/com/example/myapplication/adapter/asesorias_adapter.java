@@ -101,7 +101,7 @@ public class asesorias_adapter extends RecyclerView.Adapter<asesorias_adapter.as
                 cuerpo=cuerpo.substring(0,100);
                 holder.txtCuerpoAsesoria.setText(Html.fromHtml(cuerpo)+"...");
             }
-            holder.txtEspecialidad.setText("Categoria: "+ListaAsesorias.get(position).getIdAsesoria());
+            holder.txtEspecialidad.setText("Categoria: "+ListaAsesorias.get(position).getIdAsesoria()+"    Fecha: "+ListaAsesorias.get(position).getFecha());
 
         }
     }

@@ -204,6 +204,7 @@ public class asesorias extends Fragment implements View.OnClickListener, Respons
                 as.setCuerpoAsesoria(jsonObject.optString("descripcion"));
                 as.setEspecialidad(jsonObject.optString("iduser"));
                 as.setIdAsesoria(jsonObject.optString("especialidad"));
+                as.setFecha(jsonObject.optString("fecha"));
 
 
                 listaAsesorias.add(as);

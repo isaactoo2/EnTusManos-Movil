@@ -1,7 +1,7 @@
 package com.example.myapplication.entidades;
 
 public class asesoria {
-    private String idAsesoria, tituloAsesoria, cuerpoAsesoria, especialidad;
+    private String idAsesoria, tituloAsesoria, cuerpoAsesoria, especialidad, fecha;
     private boolean isHeader;
 
     public boolean isHeader() {
@@ -14,6 +14,14 @@ public class asesoria {
 
     public String getIdAsesoria() {
         return idAsesoria;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public void setIdAsesoria(String idAsesoria) {
