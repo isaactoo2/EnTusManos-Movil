@@ -32,7 +32,8 @@ public class add_foro extends AppCompatActivity {
     TextInputLayout titulo, descripcion;
     String[] categorias={"Seleccionar categoria", "Bebés", "Crianza", "Embarazo", "Familia", "Niños", "Mujer", "Salud", "Otro"};
     StringRequest stringRequest;
-    String iduser="13";
+    String iduser=MainActivity.userId;
+
     RequestQueue request;
     url server = new url();
     @Override
@@ -60,8 +61,8 @@ public class add_foro extends AppCompatActivity {
                     return;
                 }
 
-
                 cargarWebService();
+
             }
         });
         btnCancelar.setOnClickListener(new View.OnClickListener() {
@@ -100,13 +101,13 @@ public class add_foro extends AppCompatActivity {
         }){
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
-                String iduserE = "13";
+
                 String tituloE = titulo.getEditText().getText().toString();
                 String descripcionE = descripcion.getEditText().getText().toString();
                 String categ = spnCateg.getSelectedItem().toString();
 
                 Map<String,String> parametros = new HashMap<>();
-                parametros.put("iduser", iduserE);
+                parametros.put("iduser", iduser);
                 parametros.put("titulo", tituloE);
                 parametros.put("descripcion", descripcionE);
                 parametros.put("categoria", categ);

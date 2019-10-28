@@ -162,6 +162,7 @@ public class login extends Activity implements Response.Listener<JSONObject>, Re
         Intent main = new Intent(login.this, MainActivity.class);
         main.putExtra(MainActivity.usuario, miusuario.getName() +" "+ miusuario.getLname());
         main.putExtra(MainActivity.email, miusuario.getUser());
+        main.putExtra(MainActivity.id, miusuario.getId());
         startActivity(main);
         finish();
         progressDialog.dismiss();

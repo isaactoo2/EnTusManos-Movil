@@ -33,7 +33,7 @@ public class add_asesoria extends AppCompatActivity {
     TextInputLayout titulo, descripcion;
     String[] categorias={"Seleccionar categoria", "Psicología", "Salud", "Nutrición", "Pediatría", "Neurología", "Dermatología"};
     StringRequest stringRequest;
-    String iduser="13";
+    String iduser=MainActivity.userId;
     RequestQueue request;
     url server = new url();
 
@@ -103,14 +103,14 @@ public class add_asesoria extends AppCompatActivity {
         }){
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
-                String iduserE = "13";
+
                 String tituloE = titulo.getEditText().getText().toString();
                 String descripcionE = descripcion.getEditText().getText().toString();
                 String categ = Integer.toString(spnCateg.getSelectedItemPosition());
 
 
                 Map<String,String> parametros = new HashMap<>();
-                parametros.put("iduser", iduserE);
+                parametros.put("iduser", iduser);
                 parametros.put("titulo", tituloE);
                 parametros.put("descripcion", descripcionE);
                 parametros.put("idTipoEsp", categ);

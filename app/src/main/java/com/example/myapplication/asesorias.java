@@ -62,7 +62,8 @@ public class asesorias extends Fragment implements View.OnClickListener, Respons
     JsonObjectRequest jsonObjectRequest;
     SwipeRefreshLayout refreshLayout;
     url server = new url();
-    String iduser="13";
+
+    String iduser=MainActivity.userId;
 
     private OnFragmentInteractionListener mListener;
 
@@ -180,7 +181,7 @@ public class asesorias extends Fragment implements View.OnClickListener, Respons
 
     @Override
     public void onErrorResponse(VolleyError error) {
-
+        Toast.makeText(getContext(), "Aun no has realizado una consulta", Toast.LENGTH_SHORT).show();
     }
 
     @Override

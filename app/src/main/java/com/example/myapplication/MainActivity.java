@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity
         implements home.OnFragmentInteractionListener,lista_foros.OnFragmentInteractionListener , asesorias.OnFragmentInteractionListener ,lista_donaciones.OnFragmentInteractionListener ,perfil.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener, Response.Listener<JSONObject>, Response.ErrorListener  {
     public static final String usuario = "usuario";
     public static final String email = "email";
+    public static final String id = "id";
+    public static String userId;
     TextView lblnombre, lblemail;
     public LinearLayout headerL;
 
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity
 
         String nombre = getIntent().getStringExtra("usuario");
         String navEmail = getIntent().getStringExtra("email");
+        userId=getIntent().getStringExtra("id");
         try {
             lblnombre=(TextView)hView.findViewById(R.id.lblUser);
             lblnombre.setText(nombre);

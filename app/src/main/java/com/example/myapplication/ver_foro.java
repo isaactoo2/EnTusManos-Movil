@@ -45,6 +45,7 @@ public class ver_foro extends AppCompatActivity {
     SwipeRefreshLayout refreshLayout;
     RecyclerView recyclerView;
     String id;
+    String iduser=MainActivity.userId;
     RequestQueue request;
     StringRequest stringRequest;
     JsonObjectRequest jsonObjectRequest;
@@ -117,13 +118,13 @@ public class ver_foro extends AppCompatActivity {
         }){
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
-                String iduserE = "13";
+
                 String comentario = txtComentar.getText().toString().trim();
                 String idForo = id;
 
 
                 Map<String,String> parametros = new HashMap<>();
-                parametros.put("iduser", iduserE);
+                parametros.put("iduser", iduser);
                 parametros.put("idforo", idForo);
                 parametros.put("comentario", comentario);
 

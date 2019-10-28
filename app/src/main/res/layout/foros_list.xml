@@ -5,38 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:layout_marginBottom="5dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="2dp"
     android:foreground="?android:attr/selectableItemBackground"
     app:layout_constraintCircleRadius="20dp">
-            <TextView
-                android:id="@+id/encabezadoForo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginRight="14dp"
-                android:text="Titulo | Categoria"
-                android:textSize="24sp"
-                android:textColor="#000"/>
 
-            <TextView
-                android:id="@+id/detalleForo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginBottom="14dp"
-                android:text="Publicado por: "
-                android:textSize="14sp" />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/cuerpoForo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:layout_marginRight="14dp"
-                android:layout_marginBottom="10dp"
-                android:text="Cuerpo "
-                android:textSize="14sp" />
+        <TextView
+            android:id="@+id/encabezadoForo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="14dp"
+            android:text="Titulo | Categoria"
+            android:layout_gravity="left|top"
+            android:textColor="#000"
+            android:textSize="24sp" />
+
+        <ImageButton
+            android:id="@+id/menuFoto"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:visibility="invisible"
+            android:background="@color/white"
+            android:layout_gravity="right|top"
+            app:srcCompat="@drawable/ic_more_horiz" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+    <TextView
+        android:id="@+id/detalleForo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="8dp"
+        android:text="Publicado por: "
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/cuerpoForo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="10dp"
+        android:text="Cuerpo "
+        android:textSize="14sp" />
 
 </LinearLayout>

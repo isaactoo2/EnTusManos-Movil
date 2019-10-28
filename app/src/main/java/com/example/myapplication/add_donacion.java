@@ -53,7 +53,7 @@ public class add_donacion extends AppCompatActivity {
     StringRequest stringRequest;
     ImageView imgDonacion;
     TextInputLayout titulo, descripcion;
-    String iduser="13";
+    String iduser=MainActivity.userId;
     Button btn, cancelar;
     private final String CAMERA_RAIZ="misDonaciones/";
     private final String RUTA_IMAGEM=CAMERA_RAIZ+"fotos";
@@ -145,14 +145,14 @@ public class add_donacion extends AppCompatActivity {
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                String iduserE = "13";
+
                 String tituloE = titulo.getEditText().getText().toString();
                 String descripcionE = descripcion.getEditText().getText().toString();
 
                 String image = convertirImgString(bitmap);
 
                 Map<String,String> parametros = new HashMap<>();
-                parametros.put("iduser", iduserE);
+                parametros.put("iduser", iduser);
                 parametros.put("titulo", tituloE);
                 parametros.put("descripcion", descripcionE);
                 parametros.put("ruta", image);
