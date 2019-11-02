@@ -56,7 +56,7 @@ public class comentarios_adapter extends RecyclerView.Adapter<comentarios_adapte
     }
 
     private void cargarImagenWebService(String foto, final comentarios_holder holder) {
-        String urlImage="http://"+server.getServer()+"/yourhands2/photos/"+foto;
+        String urlImage="http://"+server.getServer()+"/photos/"+foto;
         ImageRequest imageRequest = new ImageRequest(urlImage, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {

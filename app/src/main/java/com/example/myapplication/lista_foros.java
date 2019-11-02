@@ -141,7 +141,7 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
         data.setHeader(true);
         listaForos.add(data);
 
-        String url = "http://"+server.getServer()+"/yourhands2/ws/getForos.php";
+        String url = "http://"+server.getServer()+"/ws/getForos.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }

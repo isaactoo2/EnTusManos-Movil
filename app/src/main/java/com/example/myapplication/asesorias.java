@@ -137,7 +137,7 @@ public class asesorias extends Fragment implements View.OnClickListener, Respons
         data.setHeader(true);
         listaAsesorias.add(data);
 
-        String url = "http://"+server.getServer()+"/yourhands2/ws/getAsesorias.php?user="+iduser;
+        String url = "http://"+server.getServer()+"/ws/getAsesorias.php?user="+iduser;
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }

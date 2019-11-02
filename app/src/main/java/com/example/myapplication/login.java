@@ -100,7 +100,7 @@ public class login extends Activity implements Response.Listener<JSONObject>, Re
 
     private void cargarWebService(){
 
-        String url = "http://"+server.getServer()+"/yourhands2/ws/login.php?email="+user.getEditText().getText().toString()+"&pwd="+pwd.getEditText().getText().toString();
+        String url = "http://"+server.getServer()+"/ws/login.php?email="+user.getEditText().getText().toString()+"&pwd="+pwd.getEditText().getText().toString();
         url=url.replace(" ", "%20");
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);

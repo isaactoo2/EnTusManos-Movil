@@ -25,7 +25,7 @@ public class recovery_pwd extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.clearCache(true);
         webView.getSettings().setDomStorageEnabled(true);
-        webView.loadUrl("http://"+server.getServer()+"/yourhands2/recuperar.php");
+        webView.loadUrl("http://"+server.getServer()+"/recuperar.php");
 
 
 

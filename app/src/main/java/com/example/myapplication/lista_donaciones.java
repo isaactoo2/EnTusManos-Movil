@@ -146,7 +146,7 @@ public class lista_donaciones extends Fragment implements View.OnClickListener, 
     }
 
     private void cargarWebService() {
-        String url = "http://"+server.getServer()+"/yourhands2/ws/getDonacion.php";
+        String url = "http://"+server.getServer()+"/ws/getDonacion.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }

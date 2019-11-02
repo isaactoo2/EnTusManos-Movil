@@ -75,7 +75,7 @@ public class add_foro extends AppCompatActivity {
 
     private void cargarWebService() {
         showDialog();
-        String url = "http://"+server.getServer()+"/yourhands2/ws/addForo.php";
+        String url = "http://"+server.getServer()+"/ws/addForo.php";
         stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

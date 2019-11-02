@@ -96,7 +96,7 @@ public class ver_foro extends AppCompatActivity {
     }
 
     private void enviarComentario() {
-        String url = "http://"+server.getServer()+"/yourhands2/ws/addForoComentario.php";
+        String url = "http://"+server.getServer()+"/ws/addForoComentario.php";
         stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -145,7 +145,7 @@ public class ver_foro extends AppCompatActivity {
     }
 
     private void cargarComentarios() {
-        String url = "http://"+server.getServer()+"/yourhands2/ws/getForoComentario.php?id="+id;
+        String url = "http://"+server.getServer()+"/ws/getForoComentario.php?id="+id;
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -196,7 +196,7 @@ public class ver_foro extends AppCompatActivity {
 
     private void cargarForo() {
 
-        String url = "http://"+server.getServer()+"/yourhands2/ws/getForo.php?id="+id;
+        String url = "http://"+server.getServer()+"/ws/getForo.php?id="+id;
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url,null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

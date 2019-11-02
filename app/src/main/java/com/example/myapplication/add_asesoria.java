@@ -77,7 +77,7 @@ public class add_asesoria extends AppCompatActivity {
 
     private void cargarWebService() {
         showDialog();
-        String url = "http://"+server.getServer()+"/yourhands2/ws/addAsesoria.php";
+        String url = "http://"+server.getServer()+"/ws/addAsesoria.php";
         stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
