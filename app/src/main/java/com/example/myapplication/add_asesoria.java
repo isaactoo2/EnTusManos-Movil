@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.entidades.url;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.HashMap;
@@ -29,7 +31,7 @@ import java.util.Map;
 public class add_asesoria extends AppCompatActivity {
     private ProgressDialog progressDialog;
     Spinner spnCateg;
-    Button btnAgregar, btnCancelar;
+    Button btnAgregar, btnLista;
     TextInputLayout titulo, descripcion;
     String[] categorias={"Seleccionar categoria", "Psicología", "Salud", "Nutrición", "Pediatría", "Neurología", "Dermatología"};
     StringRequest stringRequest;
@@ -51,7 +53,15 @@ public class add_asesoria extends AppCompatActivity {
         titulo = findViewById(R.id.txtTitulo);
         descripcion = findViewById(R.id.txtDescrip);
         btnAgregar = findViewById(R.id.btnPublicar);
-        btnCancelar = findViewById(R.id.btnCancelar);
+        btnLista = findViewById(R.id.profesional);
+        btnLista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), lista_profesional.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         spnCateg.setAdapter(adapter);
@@ -66,7 +76,8 @@ public class add_asesoria extends AppCompatActivity {
                 cargarWebService();
             }
         });
-        btnCancelar.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab=findViewById(R.id.fabClose);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

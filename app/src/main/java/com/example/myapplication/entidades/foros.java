@@ -1,7 +1,7 @@
 package com.example.myapplication.entidades;
 
 public class foros {
-    private String idForo, tituloForo, cuerpoForo, userForo, categoriaForo, fechaForo;
+    private String idForo, tituloForo, cuerpoForo, userForo, categoriaForo, fechaForo, idUserForo;
     private boolean isHeader;
 
     public boolean isHeader() {
@@ -10,6 +10,14 @@ public class foros {
 
     public void setHeader(boolean header) {
         isHeader = header;
+    }
+
+    public String getIdUserForo() {
+        return idUserForo;
+    }
+
+    public void setIdUserForo(String idUserForo) {
+        this.idUserForo = idUserForo;
     }
 
     public String getIdForo() {

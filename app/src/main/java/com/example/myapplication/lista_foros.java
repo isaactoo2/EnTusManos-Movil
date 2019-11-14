@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -62,6 +65,7 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
     JsonObjectRequest jsonObjectRequest;
     SwipeRefreshLayout refreshLayout;
     url server = new url();
+    String iduser=MainActivity.userId;
 
 
     private OnFragmentInteractionListener mListener;
@@ -95,6 +99,12 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -209,13 +219,14 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
                 foro.setUserForo(jsonObject.optString("nombre"));
                 foro.setFechaForo(jsonObject.optString("fecha_foro"));
                 foro.setIdForo(jsonObject.optString("idForo"));
+                foro.setIdUserForo(jsonObject.optString("iduser"));
 
 
                 listaForos.add(foro);
                 refreshLayout.setRefreshing(false);
             }
 
-            foros_adapter adapter=new foros_adapter(listaForos, this);
+            foros_adapter adapter=new foros_adapter(listaForos, this, getContext());
             recyclerForos.setAdapter(adapter);
         } catch (JSONException e) {
             Toast.makeText(this.getContext(), "Error "+ e.getMessage().toString(), Toast.LENGTH_SHORT).show();
@@ -226,9 +237,12 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
 
     @Override
     public void onForoClick(int position) {
-        Intent intent = new Intent(getContext(), ver_foro.class);
-        intent.putExtra("idForo", listaForos.get(position).getIdForo());
-        startActivity(intent);
+        if (position>0){
+            Intent intent = new Intent(getContext(), ver_foro.class);
+            intent.putExtra("idForo", listaForos.get(position).getIdForo());
+            startActivity(intent);
+        }
+
 
     }
 

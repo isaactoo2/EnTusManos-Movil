@@ -32,7 +32,7 @@ public class comentarios_adapter extends RecyclerView.Adapter<comentarios_adapte
 
     public comentarios_adapter(List<comentarios> listaComentarios, Context context){
         this.ListaComentarios=listaComentarios;
-        context=context;
+        this.context=context;
         request= Volley.newRequestQueue(context);
     }
 

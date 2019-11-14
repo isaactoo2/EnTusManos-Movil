@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,12 +16,22 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.entidades.asesoria;
+import com.example.myapplication.entidades.comentarios;
 import com.example.myapplication.entidades.foros;
 import com.example.myapplication.entidades.url;
 import com.example.myapplication.ver_foro;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -28,10 +41,14 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
     Context context;
     url server = new url();
     private OnForoListener mOnForoListener;
+    String iduser= MainActivity.userId;
+    JsonObjectRequest jsonObjectRequest;
 
-    public foros_adapter(List<foros> listaForos, OnForoListener onForoListener) {
+    public foros_adapter(List<foros> listaForos, OnForoListener onForoListener, Context context) {
         this.ListaForos = listaForos;
         this.mOnForoListener = onForoListener;
+        this.context = context;
+
     }
 
     private class VIEWS_TYPES{
@@ -68,12 +85,12 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull foros_adapter.foros_holder holder, final int position) {
+    public void onBindViewHolder(@NonNull final foros_adapter.foros_holder holder, final int position) {
         if (!isHeader){
             String cuerpo, encabezado, detalle;
             encabezado=ListaForos.get(position).getTituloForo()+" | "+ListaForos.get(position).getCategoriaForo();
             cuerpo=ListaForos.get(position).getCuerpoForo();
-            detalle="Publicado por: "+ ListaForos.get(position).getUserForo() + " el " + ListaForos.get(position).getFechaForo();
+            detalle="Publicado por: "+ ListaForos.get(position).getIdUserForo() + " el " + iduser;
 
             holder.txtEncabezado.setText(encabezado);
             if (cuerpo.length()>0 && cuerpo.length()<=100){
@@ -83,7 +100,33 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
                 holder.txtCuerpo.setText(Html.fromHtml(cuerpo)+"...");
             }
             holder.txtDetalle.setText(detalle);
-
+            if (ListaForos.get(position).getIdUserForo().equals(iduser)){
+                holder.menu.setVisibility(View.VISIBLE);
+            }
+            holder.menu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PopupMenu popupMenu = new PopupMenu(context, holder.menu);
+                    popupMenu.inflate(R.menu.menu_foro);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem menuItem) {
+                                switch (menuItem.getItemId()){
+                                    case R.id.menu_edit:
+                                        Toast.makeText(context, ListaForos.get(position).getIdUserForo(), Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case R.id.menu_delete:
+                                        Toast.makeText(context, "Borrar", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            return false;
+                        }
+                    });
+                    popupMenu.show();
+                }
+            });
 
         }
     }
@@ -98,6 +141,7 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
         TextView txtEncabezado, txtDetalle, txtCuerpo;
         CardView foroCard;
         OnForoListener onForoListener;
+        ImageView menu;
 
 
         public foros_holder(@NonNull View itemView, OnForoListener onForoListener) {
@@ -107,6 +151,9 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
             txtDetalle = itemView.findViewById(R.id.detalleForo);
             txtCuerpo = itemView.findViewById(R.id.cuerpoForo);
 
+            menu = itemView.findViewById(R.id.menuForo);
+
+
             this.onForoListener=onForoListener;
             itemView.setOnClickListener(this);
         }
@@ -115,9 +162,15 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
         public void onClick(View view) {
             onForoListener.onForoClick(getAdapterPosition());
         }
+
+
     }
+
 
     public interface OnForoListener{
         void onForoClick(int position);
     }
+
+
+
 }

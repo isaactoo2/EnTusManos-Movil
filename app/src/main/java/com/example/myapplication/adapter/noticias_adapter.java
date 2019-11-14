@@ -55,7 +55,7 @@ public class noticias_adapter extends RecyclerView.Adapter<noticias_adapter.noti
 
     public noticias_adapter(List<noticias> listaNoticias, Context context) {
         this.ListaNoticias = listaNoticias;
-        context=context;
+        this.context=context;
         request= Volley.newRequestQueue(context);
 
     }
