@@ -28,6 +28,10 @@
             android:id="@+id/nav_asesoria"
             android:title="Asesoria"
             android:icon="@drawable/ic_supervisor_account_24dp"/>
+        <item
+            android:id="@+id/nav_mensajes"
+            android:title="Mensajes"
+            android:icon="@drawable/ic_message"/>
 
 
     </group>

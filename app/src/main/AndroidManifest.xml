@@ -39,6 +39,7 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+
         <activity android:name=".register"></activity>
 
         <activity android:name=".faqs" android:label="FAQs"></activity>
@@ -46,6 +47,7 @@
         <activity android:name=".add_foro" android:label="Publicar nuevo foro"></activity>
         <activity android:name=".add_asesoria" android:label="Nueva consulta"></activity>
         <activity android:name=".lista_profesional" android:label="Profesionales"></activity>
+        <activity android:name=".lista_mensajes" android:label="Mis Mensajes" android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".recovery_pwd"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">

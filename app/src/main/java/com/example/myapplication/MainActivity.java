@@ -185,10 +185,10 @@ public class MainActivity extends AppCompatActivity
             miFragment=new lista_donaciones();
             fragmentSelecionado=true;
 
-        } else if (id == R.id.nav_donaciones) {
+        } else if (id == R.id.nav_mensajes) {
 
-            /*Intent donacion = new Intent(MainActivity.this, add_donacion.class);
-            startActivity(donacion);*/
+            Intent mensajes = new Intent(MainActivity.this, lista_mensajes.class);
+            startActivity(mensajes);
 
 
 
