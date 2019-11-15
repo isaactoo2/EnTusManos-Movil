@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -112,6 +113,8 @@ public class lista_mensajes extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onMensajeClick(int position) {
         Toast.makeText(this, listaMensajes.get(position).getUserName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), conversacion.class);
+        startActivity(intent);
     }
 
     @Override
