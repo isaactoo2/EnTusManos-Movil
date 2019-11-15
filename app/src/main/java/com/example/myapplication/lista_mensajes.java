@@ -114,7 +114,18 @@ public class lista_mensajes extends AppCompatActivity implements View.OnClickLis
     public void onMensajeClick(int position) {
         Toast.makeText(this, listaMensajes.get(position).getUserName(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), conversacion.class);
-        startActivity(intent);
+        intent.putExtra("userName", listaMensajes.get(position).getUserName());
+        intent.putExtra("userPhoto", listaMensajes.get(position).getPhoto());
+        intent.putExtra("userId", listaMensajes.get(position).getIdUser());
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==1){
+            cargarMensajes();
+        }
     }
 
     @Override

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/toolbar" android:id="@+id/mCustonToolbar"/>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
+        android:layout_below="@+id/mCustonToolbar"
+        android:layout_above="@+id/txtMensaje"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -18,4 +22,50 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</LinearLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_above="@+id/txtMensaje"
+
+        android:layout_marginBottom="0dp"
+        android:background="@color/light_gray" />
+
+
+    <EditText
+        android:id="@+id/txtMensaje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+
+
+        android:layout_toStartOf="@+id/btnEnviar"
+        android:layout_toLeftOf="@+id/btnEnviar"
+        android:background="@drawable/edit_text"
+        android:hint="Escribe un mensaje..."
+        android:isScrollContainer="true"
+        android:minHeight="50dp"
+        android:maxHeight="150dp"
+        android:padding="14dp"
+
+
+        />
+    <ImageButton
+        android:visibility="gone"
+        android:id="@+id/btnEnviar"
+        android:background="@drawable/button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        app:srcCompat="@drawable/ic_send"
+        android:foregroundGravity="center"
+
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>
