@@ -1,11 +1,13 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,11 +19,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.adapter.donaciones_adapter;
 
@@ -34,6 +38,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -44,7 +50,7 @@ import java.util.ArrayList;
  * Use the {@link lista_donaciones#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class lista_donaciones extends Fragment implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
+public class lista_donaciones extends Fragment implements donaciones_adapter.OnDonacionListener, View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -56,6 +62,7 @@ public class lista_donaciones extends Fragment implements View.OnClickListener, 
     Button btn;
 
     url server = new url();
+    String iduser=MainActivity.userId;
 
     private lista_donaciones.OnFragmentInteractionListener mListener;
 
@@ -64,6 +71,7 @@ public class lista_donaciones extends Fragment implements View.OnClickListener, 
 
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
+    StringRequest stringRequest;
     SwipeRefreshLayout refreshLayout;
 
     public lista_donaciones() {
@@ -174,12 +182,15 @@ public class lista_donaciones extends Fragment implements View.OnClickListener, 
                 donacion.setPhotoDonacion(jsonObject.optString("imagen"));
                 donacion.setUserDonacion(jsonObject.optString("nombre"));
                 donacion.setUserUbicacion(jsonObject.optString("ubicacion"));
+                donacion.setIdUserDonacion(jsonObject.optString("iduser"));
+                donacion.setUserPhoto(jsonObject.optString("photo"));
+
 
                 listaDonaciones.add(donacion);
                 refreshLayout.setRefreshing(false);
             }
 
-            donaciones_adapter adapter=new donaciones_adapter(listaDonaciones, getContext());
+            donaciones_adapter adapter=new donaciones_adapter(listaDonaciones, getContext(), this);
             recyclerDonacion.setAdapter(adapter);
         } catch (JSONException e) {
             Toast.makeText(this.getContext(), "Error "+ e.getMessage().toString(), Toast.LENGTH_SHORT).show();
@@ -217,6 +228,84 @@ public class lista_donaciones extends Fragment implements View.OnClickListener, 
 
     }
 
+    @Override
+    public void onDonacionClick(final int position) {
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+        builder1.setTitle("¿Quieres contactar al propietario de este artículo?");
+        builder1.setMessage("Se iniciará una conversación con el propietario del artículo");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Si",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        if (iduser.equals(listaDonaciones.get(position).getIdUserDonacion())){
+                            Toast.makeText(getContext(), "No puedes iniciar una conversación, eres el propietario del articulo", Toast.LENGTH_SHORT).show();
+                        }else {
+
+                            String url = "http://"+server.getServer()+"/ws/addMensaje.php";
+                            stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    if (response.equalsIgnoreCase("Registra")){
+                                        Intent intent = new Intent(getContext(), conversacion.class);
+                                        intent.putExtra("userName", listaDonaciones.get(position).getUserDonacion());
+                                        intent.putExtra("userPhoto", listaDonaciones.get(position).getUserPhoto());
+                                        intent.putExtra("userId", listaDonaciones.get(position).getIdUserDonacion());
+                                        startActivity(intent);
+
+                                    }else {
+                                        Toast.makeText(getContext(), "No se ha podido contactar", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getContext(), "Error al enviar mensaje", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }){
+                                @Override
+                                public Map<String, String> getParams() throws AuthFailureError {
+
+                                    String mensaje = "Me interesa tu artículo publicado \n"+"Artículo: "+listaDonaciones.get(position).getTituloDonacion()+"\n"+ "Descripciín: "+ listaDonaciones.get(position).getCuerpoDonacion() + "\n"+"Ubicación: "+listaDonaciones.get(position).getUserUbicacion();
+                                    String idto =listaDonaciones.get(position).getIdUserDonacion();
+
+
+                                    Map<String,String> parametros = new HashMap<>();
+                                    parametros.put("deIdUser", iduser);
+                                    parametros.put("paraIdUser", idto);
+                                    parametros.put("mensaje", mensaje);
+
+                                    return parametros;
+                                }
+                            };
+
+                            request.add(stringRequest);
+
+
+                        }
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    private void enviarMensaje() {
+
+
+    }
 
 
     /**

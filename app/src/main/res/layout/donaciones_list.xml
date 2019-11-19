@@ -3,28 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/donaciones_list"
-    android:background="#EBEFF2">
+    android:background="@color/white"
+    >
 
-    <androidx.cardview.widget.CardView
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="8dp"
-        app:cardCornerRadius="5dp"
-        app:cardUseCompatPadding="false"
-        app:cardPreventCornerOverlap="true"
-        android:elevation="20dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:elevation="5dp"
+            android:foreground="?android:attr/selectableItemBackground">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgDonacion"
@@ -76,10 +68,17 @@
                     android:text="Ubicación: "
                     android:textSize="14sp" />
             </LinearLayout>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_height="2dp"
+                android:layout_above="@+id/txtComentar"
 
+                android:layout_marginBottom="0dp"
+                android:background="@color/light_gray" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

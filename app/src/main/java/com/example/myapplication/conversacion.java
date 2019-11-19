@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -43,6 +45,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class conversacion extends AppCompatActivity {
     String userName, userFoto, idPara;
@@ -57,6 +61,8 @@ public class conversacion extends AppCompatActivity {
     ArrayList<mensajes> listaChat;
     SwipeRefreshLayout refreshLayout;
     RecyclerView recyclerView;
+
+    chat_adapter chat_adapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,8 +85,32 @@ public class conversacion extends AppCompatActivity {
         toolbarTitulo.setText(userName);
         cargarMensajes();
         enviarMensaje();
+        tick();
 
 
+    }
+    public boolean isVisible(){
+        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        int positionOfLastVisibleItem = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+        int itemCount = recyclerView.getAdapter().getItemCount();
+        return (positionOfLastVisibleItem>=itemCount);
+    }
+
+    private void tick() {
+        final Handler handler = new Handler();
+        Timer timer = new Timer(false);
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+            }
+        };
+        timer.schedule(timerTask, 500, 500);
     }
 
     private void cargarMensajes() {
@@ -107,11 +137,14 @@ public class conversacion extends AppCompatActivity {
 
                         listaChat.add(data);
                         refreshLayout.setRefreshing(false);
+                        chat_adapter.notifyDataSetChanged();
+                        if (isVisible()){
+                            recyclerView.smoothScrollToPosition(chat_adapter.getItemCount()-1);
+                        }
+
 
                     }
 
-                    chat_adapter adapter=new chat_adapter(listaChat);
-                    recyclerView.setAdapter(adapter);
 
 
                 } catch (JSONException e) {
@@ -131,11 +164,17 @@ public class conversacion extends AppCompatActivity {
 
     }
 
+    @SuppressLint("WrongConstant")
     private void cargarUI() {
         txtMensaje = findViewById(R.id.txtMensaje);
         btnEnviar = findViewById(R.id.btnEnviar);
 
         listaChat =new ArrayList<>();
+        chat_adapter = new chat_adapter(listaChat);
+        recyclerView=findViewById(R.id.recyclerConversacion);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(chat_adapter);
+
     }
 
     private void enviarMensaje() {
@@ -164,6 +203,7 @@ public class conversacion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 envioMensaje();
+                cargarMensajes();
             }
         });
     }
@@ -238,9 +278,7 @@ public class conversacion extends AppCompatActivity {
                 cargarMensajes();
             }
         });
-        recyclerView = findViewById(R.id.recyclerConversacion);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        recyclerView.setHasFixedSize(true);
+
     }
     private void closeKeyBoard() {
         View view = this.getCurrentFocus();

@@ -47,7 +47,7 @@
         <activity android:name=".add_foro" android:label="Publicar nuevo foro"></activity>
         <activity android:name=".add_asesoria" android:label="Nueva consulta"></activity>
         <activity android:name=".lista_profesional" android:label="Profesionales"></activity>
-        <activity android:name=".lista_mensajes" android:label="Mis Mensajes" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".lista_mensajes" android:label="Mis Mensajes"></activity>
         <activity android:name=".conversacion" android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity android:name=".recovery_pwd"

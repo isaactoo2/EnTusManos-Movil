@@ -1,7 +1,23 @@
 package com.example.myapplication.entidades;
 
 public class donaciones {
-    private String idDonacion, tituloDonacion, cuerpoDonacion, userDonacion, photoDonacion, userUbicacion;
+    private String idDonacion, tituloDonacion, cuerpoDonacion, userDonacion, photoDonacion, userUbicacion, idUserDonacion, userPhoto;
+
+    public String getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(String userPhoto) {
+        this.userPhoto = userPhoto;
+    }
+
+    public String getIdUserDonacion() {
+        return idUserDonacion;
+    }
+
+    public void setIdUserDonacion(String idUserDonacion) {
+        this.idUserDonacion = idUserDonacion;
+    }
 
     public String getUserUbicacion() {
         return userUbicacion;

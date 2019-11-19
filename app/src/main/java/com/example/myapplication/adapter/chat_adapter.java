@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.entidades.mensajes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class chat_adapter extends RecyclerView.Adapter<chat_adapter.chat_holder> {

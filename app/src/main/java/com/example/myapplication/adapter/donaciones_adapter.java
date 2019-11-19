@@ -31,11 +31,14 @@ public class donaciones_adapter extends RecyclerView.Adapter<donaciones_adapter.
     RequestQueue request;
     Context context;
     url server = new url();
+    private OnDonacionListener mOnDonacionListener;
 
 
-    public donaciones_adapter(List<donaciones> listaDonaciones, Context context) {
+    public donaciones_adapter(List<donaciones> listaDonaciones, Context context, OnDonacionListener onDonacionListener) {
         this.ListaDonaciones = listaDonaciones;
-        context=context;
+        this.context=context;
+        this.mOnDonacionListener=onDonacionListener;
+
         request= Volley.newRequestQueue(context);
 
     }
@@ -47,7 +50,7 @@ public class donaciones_adapter extends RecyclerView.Adapter<donaciones_adapter.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.donaciones_list,parent,false);
         RecyclerView.LayoutParams layoutParams= new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layoutParams);
-        return new donaciones_holder(view);
+        return new donaciones_holder(view,mOnDonacionListener);
 
     }
 
@@ -92,12 +95,13 @@ public class donaciones_adapter extends RecyclerView.Adapter<donaciones_adapter.
         return ListaDonaciones.size();
     }
 
-    public class donaciones_holder extends RecyclerView.ViewHolder {
+    public class donaciones_holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView txtTituloD, txtCuerpoD, txtUser, txtUbicacion;
         ImageView img;
+        OnDonacionListener onDonacionListener;
 
-        public donaciones_holder(@NonNull View itemView) {
+        public donaciones_holder(@NonNull View itemView, OnDonacionListener onDonacionListener) {
             super(itemView);
             txtTituloD= itemView.findViewById(R.id.tituloDonacion);
             txtCuerpoD=itemView.findViewById(R.id.cuerpoDonacion);
@@ -105,7 +109,19 @@ public class donaciones_adapter extends RecyclerView.Adapter<donaciones_adapter.
             txtUbicacion=itemView.findViewById(R.id.userUbicacion);
             img=(ImageView)itemView.findViewById(R.id.imgDonacion);
 
+            this.onDonacionListener=onDonacionListener;
+            itemView.setOnClickListener(this);
+
         }
+
+        @Override
+        public void onClick(View view) {
+            onDonacionListener.onDonacionClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnDonacionListener{
+        void onDonacionClick(int position);
     }
 
 }
