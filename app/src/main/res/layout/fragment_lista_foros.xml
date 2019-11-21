@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".lista_donaciones">
+    <Spinner
+        android:id="@+id/sprCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+       />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:layout_below="@+id/sprCategoria"
+        android:layout_marginTop="0dp">
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerForos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
             android:background="@color/light_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,17 +36,21 @@
 
     <Button
         android:id="@+id/btnPublicarForo"
-        android:layout_marginRight="10dp"
         android:layout_width="wrap_content"
-        android:padding="15dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_alignEnd="@+id/refreshLayout"
+        android:layout_alignRight="@+id/refreshLayout"
+        android:layout_alignBottom="@+id/refreshLayout"
         android:layout_gravity="right|bottom"
-        android:clickable="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="9dp"
         android:background="@drawable/button_blue"
+        android:clickable="true"
+        android:padding="15dp"
         android:text="Nuevo Foro +"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>

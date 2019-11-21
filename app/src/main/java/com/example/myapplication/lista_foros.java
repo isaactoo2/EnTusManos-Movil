@@ -17,7 +17,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -60,12 +63,15 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
     RecyclerView recyclerForos;
     ArrayList<foros> listaForos;
     Button btn;
+    Spinner spnCateg;
 
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     SwipeRefreshLayout refreshLayout;
     url server = new url();
     String iduser=MainActivity.userId;
+    String[] categorias={"Seleccionar categoría", "Bebés", "Crianza", "Embarazo", "Familia", "Niños", "Mujer", "Salud", "Otro"};
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -113,6 +119,24 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
         View vista = inflater.inflate(R.layout.fragment_lista_foros, container, false);
         listaForos= new ArrayList<>();
 
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, categorias);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spnCateg = vista.findViewById(R.id.sprCategoria);
+        spnCateg.setAdapter(adapter);
+        spnCateg.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                cargarWebService(spnCateg.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         recyclerForos=vista.findViewById(R.id.recyclerForos);
         recyclerForos.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerForos.setHasFixedSize(true);
@@ -127,11 +151,11 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
             @Override
             public void onRefresh() {
 
-                cargarWebService();
+                cargarWebService(spnCateg.getSelectedItem().toString());
             }
         });
 
-        cargarWebService();
+
 
         btn=vista.findViewById(R.id.btnPublicarForo);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -146,19 +170,23 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
         return vista;
     }
 
-    private void cargarWebService() {
-        foros data = new foros();
-        data.setHeader(true);
-        listaForos.add(data);
+    private void cargarWebService(String categoria) {
 
-        String url = "http://"+server.getServer()+"/ws/getForos.php";
+        String url="http://"+server.getServer()+"/ws/getForos.php";
+        if (categoria.equals("Seleccionar categoría")){
+             url= "http://"+server.getServer()+"/ws/getForos.php";
+        } else {
+            url= "http://"+server.getServer()+"/ws/getForosCategoria.php?id="+categoria;
+        }
+
+
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode==1){
-            cargarWebService();
+            cargarWebService(spnCateg.getSelectedItem().toString());
         }
     }
 
@@ -193,7 +221,7 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
 
     @Override
     public void onErrorResponse(VolleyError error) {
-
+        Toast.makeText(getContext(), "No existen foros en esta categoría", Toast.LENGTH_SHORT).show();
     }
 
     @Override
