@@ -37,7 +37,7 @@
         android:layout_gravity="right|bottom"
         android:clickable="true"
         android:background="@drawable/button_blue"
-        android:text="¡Haz tu donación!"
+        android:text="Nuevo Articulo +"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp"/>

@@ -5,6 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -12,12 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -28,9 +27,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.adapter.donaciones_adapter;
-
 import com.example.myapplication.entidades.donaciones;
-
 import com.example.myapplication.entidades.url;
 
 import org.json.JSONArray;
@@ -45,12 +42,12 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link lista_donaciones.OnFragmentInteractionListener} interface
+ * {@link lista_intercambios.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link lista_donaciones#newInstance} factory method to
+ * Use the {@link lista_intercambios#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class lista_donaciones extends Fragment implements donaciones_adapter.OnDonacionListener, View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
+public class lista_intercambios extends Fragment implements donaciones_adapter.OnDonacionListener, View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,7 +61,7 @@ public class lista_donaciones extends Fragment implements donaciones_adapter.OnD
     url server = new url();
     String iduser=MainActivity.userId;
 
-    private lista_donaciones.OnFragmentInteractionListener mListener;
+    private lista_intercambios.OnFragmentInteractionListener mListener;
 
     RecyclerView recyclerDonacion;
     ArrayList<donaciones> listaDonaciones;
@@ -74,7 +71,7 @@ public class lista_donaciones extends Fragment implements donaciones_adapter.OnD
     StringRequest stringRequest;
     SwipeRefreshLayout refreshLayout;
 
-    public lista_donaciones() {
+    public lista_intercambios() {
         // Required empty public constructor
     }
 
@@ -87,8 +84,8 @@ public class lista_donaciones extends Fragment implements donaciones_adapter.OnD
      * @return A new instance of fragment lista_donaciones.
      */
     // TODO: Rename and change types and number of parameters
-    public static lista_donaciones newInstance(String param1, String param2) {
-        lista_donaciones fragment = new lista_donaciones();
+    public static lista_intercambios newInstance(String param1, String param2) {
+        lista_intercambios fragment = new lista_intercambios();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -108,7 +105,7 @@ public class lista_donaciones extends Fragment implements donaciones_adapter.OnD
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_lista_donaciones, container, false);
+        View vista = inflater.inflate(R.layout.fragment_lista_intercambios, container, false);
         listaDonaciones= new ArrayList<>();
 
         recyclerDonacion=vista.findViewById(R.id.recyclerDonaciones);
@@ -135,9 +132,9 @@ public class lista_donaciones extends Fragment implements donaciones_adapter.OnD
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent donacion = new Intent(getContext(), add_donacion.class);
+                Intent articulo = new Intent(getContext(), add_intercambio.class);
 
-                startActivityForResult(donacion, 1);
+                startActivityForResult(articulo, 1);
             }
         });
 
@@ -154,7 +151,7 @@ public class lista_donaciones extends Fragment implements donaciones_adapter.OnD
     }
 
     private void cargarWebService() {
-        String url = "http://"+server.getServer()+"/ws/getDonacion.php";
+        String url = "http://"+server.getServer()+"/ws/getIntercambio.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         request.add(jsonObjectRequest);
     }
@@ -179,7 +176,7 @@ public class lista_donaciones extends Fragment implements donaciones_adapter.OnD
                 jsonObject=json.getJSONObject(i);
                 donacion.setTituloDonacion(jsonObject.optString("titulo"));
                 donacion.setCuerpoDonacion(jsonObject.optString("descripcion"));
-                donacion.setPhotoDonacion("/photosdonaciones/"+jsonObject.optString("imagen"));
+                donacion.setPhotoDonacion("/photosintercambios/"+jsonObject.optString("imagen"));
                 donacion.setUserDonacion(jsonObject.optString("nombre"));
                 donacion.setUserUbicacion(jsonObject.optString("ubicacion"));
                 donacion.setIdUserDonacion(jsonObject.optString("iduser"));
@@ -232,8 +229,8 @@ public class lista_donaciones extends Fragment implements donaciones_adapter.OnD
     public void onDonacionClick(final int position) {
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-        builder1.setTitle("¿Quieres contactar al propietario de esta donación?");
-        builder1.setMessage("Se iniciará una conversación con el propietario de la donación");
+        builder1.setTitle("¿Quieres contactar al propietario de este artículo?");
+        builder1.setMessage("Se iniciará una conversación con el propietario del artículo");
         builder1.setCancelable(true);
 
         builder1.setPositiveButton(
@@ -242,7 +239,7 @@ public class lista_donaciones extends Fragment implements donaciones_adapter.OnD
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                         if (iduser.equals(listaDonaciones.get(position).getIdUserDonacion())){
-                            Toast.makeText(getContext(), "No puedes iniciar una conversación, eres el propietario de la donación", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "No puedes iniciar una conversación, eres el propietario del articulo", Toast.LENGTH_SHORT).show();
                         }else {
 
                             String url = "http://"+server.getServer()+"/ws/addMensaje.php";
@@ -270,7 +267,7 @@ public class lista_donaciones extends Fragment implements donaciones_adapter.OnD
                                 @Override
                                 public Map<String, String> getParams() throws AuthFailureError {
 
-                                    String mensaje = "Me interesa tu donación publicada \n"+"Donación: "+listaDonaciones.get(position).getTituloDonacion()+"\n"+ "Descripción: "+ listaDonaciones.get(position).getCuerpoDonacion() + "\n"+"Ubicación: "+listaDonaciones.get(position).getUserUbicacion();
+                                    String mensaje = "Me interesa tu artículo publicado \n"+"Artículo: "+listaDonaciones.get(position).getTituloDonacion()+"\n"+ "Descripción: "+ listaDonaciones.get(position).getCuerpoDonacion() + "\n"+"Ubicación: "+listaDonaciones.get(position).getUserUbicacion();
                                     String idto =listaDonaciones.get(position).getIdUserDonacion();
 
 

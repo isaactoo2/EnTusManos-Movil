@@ -72,7 +72,7 @@ public class donaciones_adapter extends RecyclerView.Adapter<donaciones_adapter.
 
 
     private void cargarImagenWebService(String photoDonacion, final donaciones_holder holder) {
-        String urlImage="http://"+server.getServer()+"/photosintercambios/"+photoDonacion;
+        String urlImage="http://"+server.getServer()+photoDonacion;
 
         ImageRequest imageRequest=new ImageRequest(urlImage, new Response.Listener<Bitmap>() {
             @Override

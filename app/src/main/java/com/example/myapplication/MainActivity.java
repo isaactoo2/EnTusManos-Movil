@@ -50,7 +50,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements home.OnFragmentInteractionListener,lista_foros.OnFragmentInteractionListener , asesorias.OnFragmentInteractionListener ,lista_donaciones.OnFragmentInteractionListener ,perfil.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener, Response.Listener<JSONObject>, Response.ErrorListener  {
+        implements home.OnFragmentInteractionListener,lista_foros.OnFragmentInteractionListener , asesorias.OnFragmentInteractionListener ,lista_donaciones.OnFragmentInteractionListener, lista_intercambios.OnFragmentInteractionListener ,perfil.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener, Response.Listener<JSONObject>, Response.ErrorListener  {
     public static final String usuario = "usuario";
     public static final String email = "email";
     public static final String id = "id";
@@ -182,10 +182,14 @@ public class MainActivity extends AppCompatActivity
             miFragment=new lista_foros();
             fragmentSelecionado=true;
         } else if (id == R.id.nav_inter) {
+            miFragment=new lista_intercambios();
+            fragmentSelecionado=true;
+
+        }else if (id == R.id.nav_donaciones) {
             miFragment=new lista_donaciones();
             fragmentSelecionado=true;
 
-        } else if (id == R.id.nav_mensajes) {
+        }else if (id == R.id.nav_mensajes) {
 
             Intent mensajes = new Intent(MainActivity.this, lista_mensajes.class);
             startActivity(mensajes);
