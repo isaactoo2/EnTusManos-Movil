@@ -68,8 +68,11 @@ public class lista_profesional extends AppCompatActivity {
                         data.setProfesional(jsonObject.optString("nombre"));
                         data.setEspecialidad(jsonObject.optString("especialidad"));
                         data.setGenero(jsonObject.optString("genero"));
-                        data.setUbicacion(jsonObject.optString("ubicacion"));
+                        data.setUbicacion(jsonObject.optString("ubicacion")+", "+jsonObject.optString("address"));
+                        data.setCorreo(jsonObject.optString("usuario"));
+                        data.setTelefono(jsonObject.optString("telefono"));
                         data.setPhotoPro(jsonObject.optString("photo"));
+
 
 
                         listaProfesionales.add(data);

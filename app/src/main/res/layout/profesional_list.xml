@@ -45,6 +45,25 @@
 
                 android:text="Genero"
                 android:textSize="14sp" />
+        <TextView
+            android:id="@+id/telefonoPro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+
+            android:text="Teléfono"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/correoPro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:text="Correo electrónico"
+            android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/ubicacionPro"
                 android:layout_width="wrap_content"

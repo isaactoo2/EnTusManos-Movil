@@ -1,7 +1,23 @@
 package com.example.myapplication.entidades;
 
 public class profesionales {
-    String profesional, genero, especialidad, ubicacion, idUser, photoPro;
+    String profesional, genero, especialidad, ubicacion, idUser, photoPro, telefono, correo;
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
     public String getProfesional() {
         return profesional;

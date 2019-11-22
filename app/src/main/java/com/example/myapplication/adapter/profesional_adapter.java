@@ -46,9 +46,12 @@ public class profesional_adapter extends RecyclerView.Adapter<profesional_adapte
 
     @Override
     public void onBindViewHolder(@NonNull profesional_adapter.profesional_holder holder, int position) {
-        holder.txtProfesional.setText("Nombre: "+ListaProfesional.get(position).getProfesional());
+        holder.txtProfesional.setText(ListaProfesional.get(position).getProfesional());
         holder.txtEsp.setText("Especialidad: "+ListaProfesional.get(position).getEspecialidad());
         holder.txtGen.setText("Genero: "+ListaProfesional.get(position).getGenero());
+        holder.txtCorreo.setText("Correo electrónico: "+ListaProfesional.get(position).getCorreo());
+        holder.txtTelefono.setText("Teléfono: "+ListaProfesional.get(position).getTelefono());
+
         holder.txtUbicacion.setText("Ubicación: "+ListaProfesional.get(position).getUbicacion());
         if (ListaProfesional.get(position).getPhotoPro()!=null){
             cargarImagenWebService(ListaProfesional.get(position).getPhotoPro(), holder);
@@ -78,13 +81,15 @@ public class profesional_adapter extends RecyclerView.Adapter<profesional_adapte
         return ListaProfesional.size();
     }
     public class profesional_holder extends  RecyclerView.ViewHolder{
-        TextView txtProfesional, txtEsp, txtGen, txtUbicacion;
+        TextView txtProfesional, txtEsp, txtGen, txtUbicacion, txtTelefono, txtCorreo;
         ImageView img;
         public profesional_holder(@NonNull View itemView) {
             super(itemView);
             txtProfesional = itemView.findViewById(R.id.tituloPro);
             txtEsp = itemView.findViewById(R.id.especialidadPro);
             txtGen = itemView.findViewById(R.id.generoPro);
+            txtTelefono = itemView.findViewById(R.id.telefonoPro);
+            txtCorreo = itemView.findViewById(R.id.correoPro);
             txtUbicacion = itemView.findViewById(R.id.ubicacionPro);
             img = itemView.findViewById(R.id.imgPro);
         }
