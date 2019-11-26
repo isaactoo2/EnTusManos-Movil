@@ -8,12 +8,12 @@
     android:foreground="?android:attr/selectableItemBackground">
 
 
-        <ImageView
-            android:id="@+id/userImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="5dp"
-           />
+
+    <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+        android:id="@+id/userImageForo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="5dp"/>
 
 
     <LinearLayout

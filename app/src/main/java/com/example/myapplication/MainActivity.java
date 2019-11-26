@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         home=new home();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, home).commit();
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

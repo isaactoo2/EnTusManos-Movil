@@ -65,7 +65,7 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
     Button btn;
     Spinner spnCateg;
 
-    RequestQueue request;
+    public RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     SwipeRefreshLayout refreshLayout;
     url server = new url();
@@ -170,7 +170,7 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
         return vista;
     }
 
-    private void cargarWebService(String categoria) {
+    public void cargarWebService(String categoria) {
 
         String url="http://"+server.getServer()+"/ws/getForos.php";
         if (categoria.equals("Seleccionar categoría")){

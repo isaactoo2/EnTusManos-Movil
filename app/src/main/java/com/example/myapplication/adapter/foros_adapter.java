@@ -16,24 +16,31 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.add_foro;
 import com.example.myapplication.entidades.asesoria;
 import com.example.myapplication.entidades.comentarios;
 import com.example.myapplication.entidades.foros;
 import com.example.myapplication.entidades.url;
+import com.example.myapplication.lista_foros;
 import com.example.myapplication.ver_foro;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_holder> {
     List<foros> ListaForos;
@@ -43,11 +50,13 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
     private OnForoListener mOnForoListener;
     String iduser= MainActivity.userId;
     JsonObjectRequest jsonObjectRequest;
+    StringRequest stringRequest;
 
     public foros_adapter(List<foros> listaForos, OnForoListener onForoListener, Context context) {
         this.ListaForos = listaForos;
         this.mOnForoListener = onForoListener;
         this.context = context;
+        request= Volley.newRequestQueue(context);
 
     }
 
@@ -88,9 +97,10 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
     public void onBindViewHolder(@NonNull final foros_adapter.foros_holder holder, final int position) {
         if (!isHeader){
             String cuerpo, encabezado, detalle;
-            encabezado=ListaForos.get(position).getTituloForo()+" | "+ListaForos.get(position).getCategoriaForo();
-            cuerpo=ListaForos.get(position).getCuerpoForo();
-            detalle="Publicado por: "+ ListaForos.get(position).getIdUserForo() + " el " + iduser;
+            final foros listItem = ListaForos.get(position);
+            encabezado=listItem.getTituloForo()+" | "+listItem.getCategoriaForo();
+            cuerpo=listItem.getCuerpoForo();
+            detalle="Publicado por: "+ listItem.getIdUserForo() + " el " + iduser;
 
             holder.txtEncabezado.setText(encabezado);
             if (cuerpo.length()>0 && cuerpo.length()<=100){
@@ -100,7 +110,7 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
                 holder.txtCuerpo.setText(Html.fromHtml(cuerpo)+"...");
             }
             holder.txtDetalle.setText(detalle);
-            if (ListaForos.get(position).getIdUserForo().equals(iduser)){
+            if (listItem.getIdUserForo().equals(iduser)){
                 holder.menu.setVisibility(View.VISIBLE);
             }
             holder.menu.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +126,9 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
                                         Toast.makeText(context, ListaForos.get(position).getIdUserForo(), Toast.LENGTH_SHORT).show();
                                         break;
                                     case R.id.menu_delete:
-                                        Toast.makeText(context, "Borrar", Toast.LENGTH_SHORT).show();
+
+                                        deleteForo(ListaForos.get(position).getIdForo(), position);
+
                                         break;
                                     default:
                                         break;
@@ -129,6 +141,37 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
             });
 
         }
+    }
+
+    private void deleteForo(final String idForo, final int position) {
+        String url = "http://"+server.getServer()+"/ws/deleteForo.php";
+        stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response.equalsIgnoreCase("Registra")){
+
+                    Toast.makeText(context, "Foro eliminado", Toast.LENGTH_SHORT).show();
+
+
+                }else {
+                    Toast.makeText(context, "Error al eliminar", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "No se ha podido conectar al servidor", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> parametros = new HashMap<>();
+                parametros.put("idForo", idForo);
+                return parametros;
+            }
+        };
+
+        request.add(stringRequest);
     }
 
     @Override

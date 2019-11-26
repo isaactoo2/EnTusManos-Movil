@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
+import com.blogspot.atifsoftwares.circularimageview.CircularImageView;
 import com.example.myapplication.R;
 import com.example.myapplication.entidades.asesoria;
 import com.example.myapplication.entidades.comentarios;
@@ -80,7 +81,7 @@ public class comentarios_adapter extends RecyclerView.Adapter<comentarios_adapte
     public class comentarios_holder extends RecyclerView.ViewHolder {
 
         TextView lblUser, lblComentario, lblFecha;
-        ImageView userPhoto;
+        CircularImageView userPhoto;
 
 
         public comentarios_holder(@NonNull View itemView) {
@@ -88,7 +89,7 @@ public class comentarios_adapter extends RecyclerView.Adapter<comentarios_adapte
             lblComentario= itemView.findViewById(R.id.lblComentario);
             lblUser=itemView.findViewById(R.id.lblUser);
             lblFecha=itemView.findViewById(R.id.lblFechaComentario);
-            userPhoto=itemView.findViewById(R.id.userImage);
+            userPhoto=(CircularImageView) itemView.findViewById(R.id.userImageForo);
 
         }
     }
