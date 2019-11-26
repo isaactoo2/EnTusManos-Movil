@@ -21,15 +21,20 @@
                 android:layout_gravity="center"
                 android:src="@drawable/ic_backbar" />
 
-            <ImageView
 
-                android:layout_marginLeft="5dp"
+
+
+
+            <com.blogspot.atifsoftwares.circularimageview.CircularImageView
                 android:id="@+id/toolbarImage"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                app:c_border="false"
                 android:src="@drawable/ic_launcher_background"
-                android:scaleType="fitCenter"/>
+
+                android:layout_gravity="center"/>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
         <TextView
             android:id="@+id/toolbarTitulo"

@@ -1,5 +1,6 @@
 package com.example.myapplication.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.Html;
@@ -27,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.add_foro;
+import com.example.myapplication.edit_foro;
 import com.example.myapplication.entidades.asesoria;
 import com.example.myapplication.entidades.comentarios;
 import com.example.myapplication.entidades.foros;
@@ -56,7 +58,7 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
         this.ListaForos = listaForos;
         this.mOnForoListener = onForoListener;
         this.context = context;
-        request= Volley.newRequestQueue(context);
+        this.request= Volley.newRequestQueue(context);
 
     }
 
@@ -123,11 +125,18 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
                         public boolean onMenuItemClick(MenuItem menuItem) {
                                 switch (menuItem.getItemId()){
                                     case R.id.menu_edit:
-                                        Toast.makeText(context, ListaForos.get(position).getIdUserForo(), Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(context, edit_foro.class);
+                                        intent.putExtra("idForo", listItem.getIdForo());
+                                        intent.putExtra("titulo", listItem.getTituloForo());
+                                        intent.putExtra("cuerpo", listItem.getCuerpoForo());
+                                        intent.putExtra("categoria", listItem.getCategoriaForo());
+
+                                        context.startActivity(intent);
+
                                         break;
                                     case R.id.menu_delete:
 
-                                        deleteForo(ListaForos.get(position).getIdForo(), position);
+                                        deleteForo(ListaForos.get(position).getIdForo());
 
                                         break;
                                     default:
@@ -143,7 +152,8 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
         }
     }
 
-    private void deleteForo(final String idForo, final int position) {
+
+    public void deleteForo(final String idForo) {
         String url = "http://"+server.getServer()+"/ws/deleteForo.php";
         stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

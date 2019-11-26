@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -10,10 +11,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.blogspot.atifsoftwares.circularimageview.CircularImageView;
+import com.example.myapplication.adapter.comentarios_adapter;
 import com.example.myapplication.adapter.noticias_adapter;
 import com.example.myapplication.entidades.noticias;
+import com.example.myapplication.entidades.url;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -39,6 +44,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,11 +62,10 @@ public class MainActivity extends AppCompatActivity
     public static final String id = "id";
     public static String userId;
     TextView lblnombre, lblemail;
+    CircularImageView userFoto;
     public LinearLayout headerL;
+    url server = new url();
 
-    RecyclerView recyclerNoticias;
-    ArrayList<noticias> listaNoticias;
-    ProgressDialog progress;
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     SwipeRefreshLayout refreshLayout;
@@ -74,6 +79,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         home=new home();
+        request= Volley.newRequestQueue(getApplicationContext());
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main, home).commit();
 
 
@@ -89,25 +95,41 @@ public class MainActivity extends AppCompatActivity
 
         String nombre = getIntent().getStringExtra("usuario");
         String navEmail = getIntent().getStringExtra("email");
+        String photo=getIntent().getStringExtra("photo");
         userId=getIntent().getStringExtra("id");
         try {
+            userFoto=hView.findViewById(R.id.imageView);
             lblnombre=(TextView)hView.findViewById(R.id.lblUser);
             lblnombre.setText(nombre);
             lblemail=(TextView)hView.findViewById(R.id.lblEmail);
             lblemail.setText(navEmail);
+            cargarImagenWebService(photo);
         }catch (Exception e){
             Toast.makeText(this, "error "+e.getMessage().toString(), Toast.LENGTH_SHORT).show();
         }
-
 
 
         /*noticias header = new noticias();
         header.setHeader(true);
         listaNoticias.add(header);*/
 
+    }
 
+    private void cargarImagenWebService(String foto) {
+        String urlImage="http://"+server.getServer()+"/photos/"+foto;
+        ImageRequest imageRequest = new ImageRequest(urlImage, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
 
+                userFoto.setImageBitmap(response);
+            }
+        }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
+            }
+        });
+        request.add(imageRequest);
     }
 
 

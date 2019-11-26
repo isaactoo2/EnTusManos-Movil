@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
+import com.blogspot.atifsoftwares.circularimageview.CircularImageView;
 import com.example.myapplication.R;
 import com.example.myapplication.entidades.misMensajes;
 import com.example.myapplication.entidades.url;
@@ -82,7 +83,7 @@ public class mensajes_adapter extends RecyclerView.Adapter<mensajes_adapter.mens
 
     public class mensajes_holder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView lblUser, lblLastMessage;
-        ImageView userPhoto;
+        CircularImageView userPhoto;
         OnMensajeListener onMensajeListener;
         public mensajes_holder(@NonNull View itemView, OnMensajeListener onMensajeListener) {
             super(itemView);

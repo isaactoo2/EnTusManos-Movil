@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,11 +24,13 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.adapter.asesorias_adapter;
 import com.example.myapplication.adapter.foros_adapter;
@@ -40,6 +43,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -67,6 +74,7 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
 
     public RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
+    StringRequest stringRequest;
     SwipeRefreshLayout refreshLayout;
     url server = new url();
     String iduser=MainActivity.userId;
@@ -155,6 +163,8 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
             }
         });
 
+       // tick();
+
 
 
         btn=vista.findViewById(R.id.btnPublicarForo);
@@ -166,6 +176,8 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
                 startActivityForResult(donacion, 1);
             }
         });
+
+
 
         return vista;
     }
@@ -189,6 +201,25 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
             cargarWebService(spnCateg.getSelectedItem().toString());
         }
     }
+
+    private void tick() {
+        final Handler handler = new Handler();
+        Timer timer = new Timer(false);
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        cargarWebService(spnCateg.getSelectedItem().toString());
+                    }
+                });
+            }
+        };
+        timer.schedule(timerTask, 1000, 1000);
+    }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -7,8 +7,7 @@
     android:layout_height="fill_parent"
     android:fillViewport="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,7 +59,7 @@
             android:layout_width="158dp"
             android:layout_height="50sp"
             android:background="@drawable/button_blue"
-            android:text="Publicar"
+            android:text="Guardar foro"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"

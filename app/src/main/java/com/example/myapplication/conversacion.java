@@ -32,6 +32,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.blogspot.atifsoftwares.circularimageview.CircularImageView;
 import com.example.myapplication.adapter.chat_adapter;
 import com.example.myapplication.adapter.mensajes_adapter;
 import com.example.myapplication.entidades.mensajes;
@@ -55,7 +56,7 @@ public class conversacion extends AppCompatActivity {
     StringRequest stringRequest;
     JsonObjectRequest jsonObjectRequest;
     url server = new url();
-    ImageView toolbarImage;
+    CircularImageView toolbarImage;
     EditText txtMensaje;
     ImageButton btnEnviar;
     ArrayList<mensajes> listaChat;

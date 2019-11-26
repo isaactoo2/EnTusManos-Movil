@@ -163,6 +163,7 @@ public class login extends Activity implements Response.Listener<JSONObject>, Re
         main.putExtra(MainActivity.usuario, miusuario.getName() +" "+ miusuario.getLname());
         main.putExtra(MainActivity.email, miusuario.getUser());
         main.putExtra(MainActivity.id, miusuario.getId());
+        main.putExtra("photo", miusuario.getPhoto());
         startActivity(main);
         finish();
         progressDialog.dismiss();
