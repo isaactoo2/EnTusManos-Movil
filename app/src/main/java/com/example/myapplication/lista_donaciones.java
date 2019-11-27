@@ -194,7 +194,6 @@ public class lista_donaciones extends Fragment implements donaciones_adapter.OnD
             recyclerDonacion.setAdapter(adapter);
         } catch (JSONException e) {
             Toast.makeText(this.getContext(), "Error "+ e.getMessage().toString(), Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
 
         }
     }

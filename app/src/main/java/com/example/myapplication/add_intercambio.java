@@ -1,12 +1,16 @@
 package com.example.myapplication;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -23,6 +27,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import com.android.volley.AuthFailureError;
@@ -66,7 +71,10 @@ public class add_intercambio extends AppCompatActivity {
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     url server = new url();
+    private LocationManager locationManager;
+    String latitud, longitud;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +119,31 @@ public class add_intercambio extends AppCompatActivity {
                 finish();
             }
         });
+        localizacion();
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void localizacion() {
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
+
+            },1000);
+        }
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (locationManager!=null){
+
+            latitud=String.valueOf(loc.getLatitude());
+            longitud=String.valueOf(loc.getLongitude());
+
+        }
+
+
+
     }
 
     public void cargarWebService(){
@@ -153,6 +186,8 @@ public class add_intercambio extends AppCompatActivity {
                 parametros.put("titulo", tituloE);
                 parametros.put("descripcion", descripcionE);
                 parametros.put("ruta", image);
+                parametros.put("lat", latitud);
+                parametros.put("lng", longitud);
 
 
                 return parametros;

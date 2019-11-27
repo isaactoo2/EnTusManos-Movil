@@ -176,7 +176,7 @@ public class home extends Fragment implements View.OnClickListener, Response.Lis
             recyclerNoticias.setAdapter(adapter);
         } catch (JSONException e) {
             Toast.makeText(this.getContext(), "Error "+ e.getMessage().toString(), Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+
 
         }
     }

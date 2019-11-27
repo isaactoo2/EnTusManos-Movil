@@ -1,17 +1,12 @@
 package com.example.myapplication;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -24,12 +19,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import com.android.volley.AuthFailureError;
@@ -46,26 +39,24 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class add_donacion extends AppCompatActivity {
+public class configuracion extends AppCompatActivity {
     private ProgressDialog progressDialog;
     StringRequest stringRequest;
     ImageView imgDonacion;
     TextInputLayout titulo, descripcion;
-    String iduser = MainActivity.userId;
+    String iduser=MainActivity.userId;
     Button btn, cancelar;
-    private final String CAMERA_RAIZ = "misDonaciones/";
-    private final String RUTA_IMAGEM = CAMERA_RAIZ + "fotos";
-    private LocationManager locationManager;
+    private final String CAMERA_RAIZ="misDonaciones/";
+    private final String RUTA_IMAGEM=CAMERA_RAIZ+"fotos";
 
-    final int COD_SELECCIONA = 10;
-    final int COD_FOTO = 20;
+    final int COD_SELECCIONA=10;
+    final int COD_FOTO=20;
     public String foto;
     Bitmap bitmap;
     Bitmap emptyBitmap;
@@ -75,8 +66,7 @@ public class add_donacion extends AppCompatActivity {
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     url server = new url();
-    String latitud, longitud;
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,10 +75,11 @@ public class add_donacion extends AppCompatActivity {
         intiDialog();
 
 
+
         titulo = (TextInputLayout) findViewById(R.id.txtTitulo);
         descripcion = (TextInputLayout) findViewById(R.id.txtDescrip);
-        btn = findViewById(R.id.btnPublicar);
-        cancelar = findViewById(R.id.btnCancelar);
+        btn=findViewById(R.id.btnPublicar);
+        cancelar=findViewById(R.id.btnCancelar);
 
 
         imgDonacion = findViewById(R.id.imgDonacion);
@@ -99,7 +90,7 @@ public class add_donacion extends AppCompatActivity {
             }
         });
 
-        if (validaPermisos()) {
+        if (validaPermisos()){
             imgDonacion.setEnabled(true);
         } else {
             imgDonacion.setEnabled(false);
@@ -108,7 +99,7 @@ public class add_donacion extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!validateText(titulo, "Complete el campo") | !validateText(descripcion, "Complete el campo")) {
+                if (!validateText(titulo, "Complete el campo") | !validateText(descripcion, "Complete el campo")){
                     return;
                 }
                 cargarWebService();
@@ -120,31 +111,6 @@ public class add_donacion extends AppCompatActivity {
                 finish();
             }
         });
-        localizacion();
-
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void localizacion() {
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
-
-            },1000);
-        }
-
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (locationManager!=null){
-
-            latitud=String.valueOf(loc.getLatitude());
-            longitud=String.valueOf(loc.getLongitude());
-
-        }
-
-
-
     }
 
     public void cargarWebService(){
@@ -157,11 +123,11 @@ public class add_donacion extends AppCompatActivity {
                     titulo.getEditText().setText("");
                     descripcion.getEditText().setText("");
                     imgDonacion.setImageResource(R.drawable.ic_menu_camera);
-                    Toast.makeText(add_donacion.this, "Publicado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(configuracion.this, "Publicado", Toast.LENGTH_SHORT).show();
 
 
                 }else {
-                    Toast.makeText(add_donacion.this, "No se ha podido registrar", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(configuracion.this, "No se ha podido registrar", Toast.LENGTH_SHORT).show();
                 }
                 progressDialog.dismiss();
                 finish();
@@ -170,7 +136,7 @@ public class add_donacion extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(add_donacion.this, "Error al publicar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(configuracion.this, "Error al publicar", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
         }){
@@ -233,7 +199,7 @@ public class add_donacion extends AppCompatActivity {
 
     private void solicitarPermisos() {
         final CharSequence[] opciones ={"Si", "No"};
-        final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(add_donacion.this);
+        final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(configuracion.this);
         alertOpciones.setTitle("¿Desea configurar los permisos?");
         alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
             @Override
@@ -245,7 +211,7 @@ public class add_donacion extends AppCompatActivity {
                     intent.setData(uri);
                     startActivity(intent);
                 }else {
-                    Toast.makeText(add_donacion.this, "Permisos no aceptados", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(configuracion.this, "Permisos no aceptados", Toast.LENGTH_SHORT).show();
                     dialogInterface.dismiss();
                 }
             }
@@ -254,7 +220,7 @@ public class add_donacion extends AppCompatActivity {
     }
 
     private void cargarDialogoRecomendacion() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(add_donacion.this);
+        AlertDialog.Builder alert = new AlertDialog.Builder(configuracion.this);
         alert.setTitle("Permisos desactivados");
         alert.setMessage("Debe aceptar los permisos");
         alert.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -270,7 +236,7 @@ public class add_donacion extends AppCompatActivity {
     private void cargarImagenes() {
 
         final CharSequence[] opciones ={"Tomar foto", "Cargar imagen", "Cancelar"};
-        final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(add_donacion.this);
+        final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(configuracion.this);
         alertOpciones.setTitle("Seleciona una opción");
         alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
             @Override
@@ -310,7 +276,7 @@ public class add_donacion extends AppCompatActivity {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager())!= null){
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(add_donacion.this, BuildConfig.APPLICATION_ID + ".provider",imagen));
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(configuracion.this, BuildConfig.APPLICATION_ID + ".provider",imagen));
             startActivityForResult(intent, COD_FOTO);
         }
     }
@@ -360,7 +326,7 @@ public class add_donacion extends AppCompatActivity {
                         bitmap=MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), path);
                         imgDonacion.setImageBitmap(bitmap);
                     } catch (IOException e) {
-
+                        e.printStackTrace();
                     }
                     break;
             }

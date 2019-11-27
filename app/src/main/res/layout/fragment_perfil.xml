@@ -51,6 +51,15 @@
                 android:textColor="#fff"
                 android:textStyle="bold"
                 android:textSize="18sp"/>
+
+            <Button
+                android:layout_marginTop="5dp"
+                android:id="@+id/configurarPerfil"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Editar perfil"
+                android:background="@drawable/button_blue"/>
         </LinearLayout>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"

@@ -175,7 +175,7 @@ public class ver_foro extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Error "+ e.getMessage().toString(), Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+
 
                 }
 

@@ -216,7 +216,7 @@ public class asesorias extends Fragment implements View.OnClickListener, Respons
             recyclerAsesoria.setAdapter(adapter);
         } catch (JSONException e) {
             Toast.makeText(this.getContext(), "Error "+ e.getMessage().toString(), Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+
 
         }
     }

@@ -289,7 +289,7 @@ public class lista_foros extends Fragment implements View.OnClickListener, Respo
             recyclerForos.setAdapter(adapter);
         } catch (JSONException e) {
             Toast.makeText(this.getContext(), "Error "+ e.getMessage().toString(), Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+
 
         }
     }

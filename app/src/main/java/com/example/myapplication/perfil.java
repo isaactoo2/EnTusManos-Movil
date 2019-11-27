@@ -14,6 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,7 @@ public class perfil extends Fragment implements View.OnClickListener, foros_adap
     url server = new url();
     RecyclerView recyclerForos;
     TextView usuario, correo, ubicacion;
+    Button btn;
     CircularImageView photo;
     SwipeRefreshLayout refreshLayout;
 
@@ -114,6 +116,7 @@ public class perfil extends Fragment implements View.OnClickListener, foros_adap
         correo=vista.findViewById(R.id.correoUsuario);
         ubicacion=vista.findViewById(R.id.direccionUsuario);
         photo=vista.findViewById(R.id.userImage);
+        btn = vista.findViewById(R.id.configurarPerfil);
 
         request = Volley.newRequestQueue(getContext());
 
@@ -133,6 +136,13 @@ public class perfil extends Fragment implements View.OnClickListener, foros_adap
             }
         });
 
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), configurar_perfil.class);
+                startActivity(intent);
+            }
+        });
 
         return vista;
     }
