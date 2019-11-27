@@ -2,6 +2,7 @@ package com.example.myapplication.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -14,7 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -49,7 +53,7 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
     RequestQueue request;
     Context context;
     url server = new url();
-    private OnForoListener mOnForoListener;
+    public OnForoListener mOnForoListener;
     String iduser= MainActivity.userId;
     JsonObjectRequest jsonObjectRequest;
     StringRequest stringRequest;
@@ -102,7 +106,7 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
             final foros listItem = ListaForos.get(position);
             encabezado=listItem.getTituloForo()+" | "+listItem.getCategoriaForo();
             cuerpo=listItem.getCuerpoForo();
-            detalle="Publicado por: "+ listItem.getIdUserForo() + " el " + iduser;
+            detalle="Publicado por: "+ listItem.getUserForo() + " el " + listItem.getFechaForo();
 
             holder.txtEncabezado.setText(encabezado);
             if (cuerpo.length()>0 && cuerpo.length()<=100){
@@ -136,7 +140,36 @@ public class foros_adapter extends RecyclerView.Adapter<foros_adapter.foros_hold
                                         break;
                                     case R.id.menu_delete:
 
-                                        deleteForo(ListaForos.get(position).getIdForo());
+
+
+                                            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                                            builder1.setMessage("¿Está seguro de eliminar el foro?");
+                                            builder1.setCancelable(true);
+
+                                            builder1.setPositiveButton(
+                                                    "Si",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            dialog.cancel();
+                                                            deleteForo(ListaForos.get(position).getIdForo());
+
+                                                        }
+                                                    });
+
+                                            builder1.setNegativeButton(
+                                                    "No",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            dialog.cancel();
+
+                                                        }
+                                                    });
+
+                                            AlertDialog alert11 = builder1.create();
+                                            alert11.show();
+
+
+
 
                                         break;
                                     default:
