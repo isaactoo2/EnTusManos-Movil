@@ -28,10 +28,12 @@ public class profesional_adapter extends RecyclerView.Adapter<profesional_adapte
     RequestQueue request;
     Context context;
     url server = new url();
+    private OnProListener mOnProListener;
 
-    public profesional_adapter(List<profesionales> ListaProfesional, Context context){
+    public profesional_adapter(List<profesionales> ListaProfesional, Context context, OnProListener onProListener){
         this.ListaProfesional=ListaProfesional;
         this.context=context;
+        this.mOnProListener=onProListener;
         request= Volley.newRequestQueue(context);
     }
 
@@ -41,7 +43,7 @@ public class profesional_adapter extends RecyclerView.Adapter<profesional_adapte
     public profesional_adapter.profesional_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View rowView;
         rowView= LayoutInflater.from(parent.getContext()).inflate(R.layout.profesional_list,parent,false);
-        return new profesional_holder(rowView);
+        return new profesional_holder(rowView, mOnProListener);
     }
 
     @Override
@@ -80,10 +82,11 @@ public class profesional_adapter extends RecyclerView.Adapter<profesional_adapte
     public int getItemCount() {
         return ListaProfesional.size();
     }
-    public class profesional_holder extends  RecyclerView.ViewHolder{
+    public class profesional_holder extends  RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtProfesional, txtEsp, txtGen, txtUbicacion, txtTelefono, txtCorreo;
         ImageView img;
-        public profesional_holder(@NonNull View itemView) {
+        OnProListener onProListener;
+        public profesional_holder(@NonNull View itemView, OnProListener onProListener) {
             super(itemView);
             txtProfesional = itemView.findViewById(R.id.tituloPro);
             txtEsp = itemView.findViewById(R.id.especialidadPro);
@@ -92,6 +95,18 @@ public class profesional_adapter extends RecyclerView.Adapter<profesional_adapte
             txtCorreo = itemView.findViewById(R.id.correoPro);
             txtUbicacion = itemView.findViewById(R.id.ubicacionPro);
             img = itemView.findViewById(R.id.imgPro);
+            this.onProListener=onProListener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onProListener.onProListener(getAdapterPosition());
+        }
+    }
+
+    public interface OnProListener{
+        void onProListener(int position);
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -30,7 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class lista_profesional extends AppCompatActivity {
+public class lista_profesional extends AppCompatActivity implements profesional_adapter.OnProListener {
 
 
     RecyclerView recyclerView;
@@ -72,13 +73,15 @@ public class lista_profesional extends AppCompatActivity {
                         data.setCorreo(jsonObject.optString("usuario"));
                         data.setTelefono(jsonObject.optString("telefono"));
                         data.setPhotoPro(jsonObject.optString("photo"));
+                        data.setIdUser(jsonObject.optString("iduser"));
+                        data.setIdEspecialidad(jsonObject.optString("idTipoEsp"));
 
 
 
                         listaProfesionales.add(data);
                     }
 
-                    profesional_adapter adapter=new profesional_adapter(listaProfesionales, getApplicationContext());
+                    profesional_adapter adapter=new profesional_adapter(listaProfesionales, getApplicationContext(), lista_profesional.this);
                     recyclerView.setAdapter(adapter);
 
 
@@ -109,5 +112,16 @@ public class lista_profesional extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onProListener(int position) {
+
+        Intent intent = new Intent(getApplicationContext(), add_asesoria.class);
+        intent.putExtra("idPro", listaProfesionales.get(position).getIdUser());
+        intent.putExtra("idEsp", listaProfesionales.get(position).getIdEspecialidad());
+        intent.putExtra("profesional", listaProfesionales.get(position).getProfesional());
+        startActivity(intent);
+
     }
 }

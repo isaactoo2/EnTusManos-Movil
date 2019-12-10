@@ -1,7 +1,15 @@
 package com.example.myapplication.entidades;
 
 public class donaciones {
-    private String idDonacion, tituloDonacion, cuerpoDonacion, userDonacion, photoDonacion, userUbicacion, idUserDonacion, userPhoto;
+    private String idDonacion, tituloDonacion, cuerpoDonacion, userDonacion, photoDonacion, userUbicacion, idUserDonacion, userPhoto, fecha;
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
 
     public String getUserPhoto() {
         return userPhoto;

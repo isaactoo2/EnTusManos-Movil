@@ -124,8 +124,8 @@ public class asesorias extends Fragment implements View.OnClickListener, Respons
         btnN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent addasesoria = new Intent(getContext(), add_asesoria.class);
-                startActivityForResult(addasesoria, 1);
+                Intent listapro = new Intent(getContext(), lista_profesional.class);
+                startActivityForResult(listapro, 1);
             }
         });
 
@@ -201,12 +201,11 @@ public class asesorias extends Fragment implements View.OnClickListener, Respons
 
                 jsonObject=json.getJSONObject(i);
 
-                as.setTituloAsesoria(jsonObject.optString("titulo"));
-                as.setCuerpoAsesoria(jsonObject.optString("descripcion"));
-                as.setEspecialidad(jsonObject.optString("iduser"));
-                as.setIdAsesoria(jsonObject.optString("especialidad"));
-                as.setFecha(jsonObject.optString("fecha"));
 
+                as.setCuerpoAsesoria(jsonObject.optString("causa"));
+                as.setEspecialidad(jsonObject.optString("especialidad"));
+                as.setIdAsesoria(jsonObject.optString("idAsesoria"));
+                as.setFecha(jsonObject.optString("fecha"));
 
                 listaAsesorias.add(as);
                 refreshLayout.setRefreshing(false);

@@ -23,6 +23,10 @@ import com.example.myapplication.entidades.asesoria;
 import com.example.myapplication.entidades.noticias;
 import com.example.myapplication.entidades.url;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class asesorias_adapter extends RecyclerView.Adapter<asesorias_adapter.asesorias_holder>{
@@ -94,15 +98,16 @@ public class asesorias_adapter extends RecyclerView.Adapter<asesorias_adapter.as
             String cuerpo;
             cuerpo=ListaAsesorias.get(position).getCuerpoAsesoria();
 
-            holder.txtTituloAsesoria.setText(ListaAsesorias.get(position).getTituloAsesoria());
+            holder.txtTituloAsesoria.setText(ListaAsesorias.get(position).getEspecialidad());
             if (cuerpo.length()>0 && cuerpo.length()<=100){
                 holder.txtCuerpoAsesoria.setText(Html.fromHtml(cuerpo));
             }else{
                 cuerpo=cuerpo.substring(0,100);
                 holder.txtCuerpoAsesoria.setText(Html.fromHtml(cuerpo)+"...");
             }
-            holder.txtEspecialidad.setText("Categoria: "+ListaAsesorias.get(position).getIdAsesoria()+"    Fecha: "+ListaAsesorias.get(position).getFecha());
 
+
+            holder.txtEspecialidad.setText("Fecha: "+ ListaAsesorias.get(position).getFecha());
         }
     }
 

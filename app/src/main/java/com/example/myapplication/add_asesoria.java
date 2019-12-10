@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,12 +35,13 @@ public class add_asesoria extends AppCompatActivity {
     Spinner spnCateg;
     Button btnAgregar, btnLista;
     TextInputLayout titulo, descripcion;
+    TextView esp;
     String[] categorias={"Seleccionar categoria", "Psicología", "Salud", "Nutrición", "Pediatría", "Neurología", "Dermatología"};
     StringRequest stringRequest;
     String iduser=MainActivity.userId;
     RequestQueue request;
     url server = new url();
-
+    String idPro, idEsp, pro;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,29 +49,18 @@ public class add_asesoria extends AppCompatActivity {
         request = Volley.newRequestQueue(getApplicationContext());
         intiDialog();
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categorias);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spnCateg = findViewById(R.id.sprCategoria);
-        titulo = findViewById(R.id.txtTitulo);
         descripcion = findViewById(R.id.txtDescrip);
         btnAgregar = findViewById(R.id.btnPublicar);
-        btnLista = findViewById(R.id.profesional);
-        btnLista.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), lista_profesional.class);
-                startActivity(intent);
-            }
-        });
+        obtenerDatos();
 
+        esp=findViewById(R.id.especialista);
+        esp.setText("Especialista seleccionado: "+pro);
 
-
-        spnCateg.setAdapter(adapter);
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!validateText(titulo, "Complete el campo") | !validateText(descripcion, "Complete el campo") | !validateSpn(spnCateg, "Selecciona una categoria")){
+                if (!validateText(descripcion, "Complete el campo")){
                     return;
                 }
 
@@ -93,7 +85,7 @@ public class add_asesoria extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 if (response.equalsIgnoreCase("Registra")){
-                    titulo.getEditText().setText("");
+
                     descripcion.getEditText().setText("");
 
                     Toast.makeText(add_asesoria.this, "Consulta realizada", Toast.LENGTH_SHORT).show();
@@ -115,16 +107,15 @@ public class add_asesoria extends AppCompatActivity {
             @Override
             public Map<String, String> getParams() throws AuthFailureError {
 
-                String tituloE = titulo.getEditText().getText().toString();
+
                 String descripcionE = descripcion.getEditText().getText().toString();
-                String categ = Integer.toString(spnCateg.getSelectedItemPosition());
 
 
                 Map<String,String> parametros = new HashMap<>();
                 parametros.put("iduser", iduser);
-                parametros.put("titulo", tituloE);
                 parametros.put("descripcion", descripcionE);
-                parametros.put("idTipoEsp", categ);
+                parametros.put("idTipoEsp", idEsp);
+                parametros.put("idPro", idPro);
                 return parametros;
             }
         };
@@ -155,6 +146,15 @@ public class add_asesoria extends AppCompatActivity {
             return true;
         }
     }
+
+    private void obtenerDatos() {
+        Bundle parametros = this.getIntent().getExtras();
+        idPro = parametros.getString("idPro");
+        idEsp = parametros.getString("idEsp");
+        pro = parametros.getString("profesional");
+
+    }
+
 
     private void intiDialog(){
         this.progressDialog=new ProgressDialog(this);

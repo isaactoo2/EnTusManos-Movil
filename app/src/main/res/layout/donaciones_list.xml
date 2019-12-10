@@ -67,7 +67,18 @@
                     android:layout_marginBottom="14dp"
                     android:text="Ubicación: "
                     android:textSize="14sp" />
+
             </LinearLayout>
+            <TextView
+
+                android:id="@+id/fecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginBottom="14dp"
+                android:text="Fecha de publicación: "
+                android:textSize="14sp" />
             <View
                 android:layout_width="wrap_content"
                 android:layout_marginRight="5dp"

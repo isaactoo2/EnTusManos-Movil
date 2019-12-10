@@ -1,7 +1,15 @@
 package com.example.myapplication.entidades;
 
 public class profesionales {
-    String profesional, genero, especialidad, ubicacion, idUser, photoPro, telefono, correo;
+    String profesional, genero, especialidad, ubicacion, idUser, photoPro, telefono, correo, idEspecialidad;
+
+    public String getIdEspecialidad() {
+        return idEspecialidad;
+    }
+
+    public void setIdEspecialidad(String idEspecialidad) {
+        this.idEspecialidad = idEspecialidad;
+    }
 
     public String getTelefono() {
         return telefono;

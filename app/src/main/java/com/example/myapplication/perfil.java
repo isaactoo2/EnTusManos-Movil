@@ -139,8 +139,7 @@ public class perfil extends Fragment implements View.OnClickListener, foros_adap
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), configurar_perfil.class);
-                startActivity(intent);
+
             }
         });
 

@@ -23,6 +23,9 @@ import com.example.myapplication.entidades.donaciones;
 
 import com.example.myapplication.entidades.url;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class donaciones_adapter extends RecyclerView.Adapter<donaciones_adapter.donaciones_holder> {
@@ -32,6 +35,7 @@ public class donaciones_adapter extends RecyclerView.Adapter<donaciones_adapter.
     Context context;
     url server = new url();
     private OnDonacionListener mOnDonacionListener;
+    public Date date;
 
 
     public donaciones_adapter(List<donaciones> listaDonaciones, Context context, OnDonacionListener onDonacionListener) {
@@ -65,6 +69,15 @@ public class donaciones_adapter extends RecyclerView.Adapter<donaciones_adapter.
             holder.txtUser.setText("Publicado por: "+ListaDonaciones.get(position).getUserDonacion());
             holder.txtUbicacion.setText("Ubicación: "+ListaDonaciones.get(position).getUserUbicacion());
 
+            if (ListaDonaciones.get(position).getFecha() == null || ListaDonaciones.get(position).getFecha()=="null"){
+                holder.txtFecha.setVisibility(View.GONE);
+            }else{
+
+                holder.txtFecha.setText("Fecha de publicación:  "+ListaDonaciones.get(position).getFecha());
+
+            }
+
+
             if ( ListaDonaciones.get(position).getPhotoDonacion()!=null){
                 cargarImagenWebService(ListaDonaciones.get(position).getPhotoDonacion(), holder);
             }
@@ -97,7 +110,7 @@ public class donaciones_adapter extends RecyclerView.Adapter<donaciones_adapter.
 
     public class donaciones_holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView txtTituloD, txtCuerpoD, txtUser, txtUbicacion;
+        TextView txtTituloD, txtCuerpoD, txtUser, txtUbicacion, txtFecha;
         ImageView img;
         OnDonacionListener onDonacionListener;
 
@@ -107,6 +120,7 @@ public class donaciones_adapter extends RecyclerView.Adapter<donaciones_adapter.
             txtCuerpoD=itemView.findViewById(R.id.cuerpoDonacion);
             txtUser=itemView.findViewById(R.id.userDonacion);
             txtUbicacion=itemView.findViewById(R.id.userUbicacion);
+            txtFecha=itemView.findViewById(R.id.fecha);
             img=(ImageView)itemView.findViewById(R.id.imgDonacion);
 
             this.onDonacionListener=onDonacionListener;

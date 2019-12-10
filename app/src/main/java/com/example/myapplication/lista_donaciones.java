@@ -184,6 +184,7 @@ public class lista_donaciones extends Fragment implements donaciones_adapter.OnD
                 donacion.setUserUbicacion(jsonObject.optString("ubicacion"));
                 donacion.setIdUserDonacion(jsonObject.optString("iduser"));
                 donacion.setUserPhoto(jsonObject.optString("photo"));
+                donacion.setFecha(jsonObject.optString("fecha"));
 
 
                 listaDonaciones.add(donacion);
