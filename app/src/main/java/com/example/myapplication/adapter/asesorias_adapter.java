@@ -34,6 +34,7 @@ public class asesorias_adapter extends RecyclerView.Adapter<asesorias_adapter.as
     RequestQueue request;
     Context context;
     url server = new url();
+    private OnListener mOnListener;
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -56,9 +57,9 @@ public class asesorias_adapter extends RecyclerView.Adapter<asesorias_adapter.as
 
 
 
-    public asesorias_adapter(List<asesoria> listaAsesorias) {
+    public asesorias_adapter(List<asesoria> listaAsesorias, OnListener onListener) {
         this.ListaAsesorias = listaAsesorias;
-
+        this.mOnListener=onListener;
     }
 
     @NonNull
@@ -84,7 +85,7 @@ public class asesorias_adapter extends RecyclerView.Adapter<asesorias_adapter.as
                 isHeader=false;
                 rowView=LayoutInflater.from(parent.getContext()).inflate(R.layout.asesorias_list,parent,false);
         }
-        return new asesorias_holder(rowView);
+        return new asesorias_holder(rowView, mOnListener);
 
 
 
@@ -117,17 +118,27 @@ public class asesorias_adapter extends RecyclerView.Adapter<asesorias_adapter.as
         return ListaAsesorias.size();
     }
 
-    public class asesorias_holder extends RecyclerView.ViewHolder {
+    public class asesorias_holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView txtTituloAsesoria, txtCuerpoAsesoria, txtEspecialidad;
+        OnListener onListener;
 
-
-        public asesorias_holder(@NonNull View itemView) {
+        public asesorias_holder(@NonNull View itemView, OnListener onListener) {
             super(itemView);
             txtTituloAsesoria= itemView.findViewById(R.id.tituloConsulta);
             txtCuerpoAsesoria=itemView.findViewById(R.id.cuerpoConsulta);
             txtEspecialidad=itemView.findViewById(R.id.categoria);
-
+            this.onListener=onListener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onListener.onLister(getAdapterPosition());
+        }
+    }
+
+    public interface  OnListener{
+        void onLister(int position);
     }
 }

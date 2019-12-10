@@ -44,7 +44,7 @@ import java.util.ArrayList;
  * Use the {@link asesorias#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class asesorias extends Fragment implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener {
+public class asesorias extends Fragment implements View.OnClickListener, Response.Listener<JSONObject>, Response.ErrorListener, asesorias_adapter.OnListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -211,13 +211,20 @@ public class asesorias extends Fragment implements View.OnClickListener, Respons
                 refreshLayout.setRefreshing(false);
             }
 
-            asesorias_adapter adapter=new asesorias_adapter(listaAsesorias);
+            asesorias_adapter adapter=new asesorias_adapter(listaAsesorias, this);
             recyclerAsesoria.setAdapter(adapter);
         } catch (JSONException e) {
             Toast.makeText(this.getContext(), "Error "+ e.getMessage().toString(), Toast.LENGTH_SHORT).show();
 
 
         }
+    }
+
+    @Override
+    public void onLister(int position) {
+        Intent intent = new Intent(getContext(), ver_asesoria.class);
+        intent.putExtra("idAsesoria", listaAsesorias.get(position).getIdAsesoria());
+        startActivity(intent);
     }
 
     /**
